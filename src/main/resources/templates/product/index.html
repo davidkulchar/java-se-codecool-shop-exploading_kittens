@@ -34,8 +34,9 @@
 </div>
 
 <div class="container">
-    <div class="well well-sm">
-        <strong th:text="${category.name}">Category Title</strong>
+    <div class="well well-sm" th:each="prod,iterStat : ${products}">
+        <!-- <strong th:text="${category.name}">Category Title</strong> -->
+       <strong th:text="${category.name}">Category Title</strong>
     </div>
 
     <div id="products" class="row list-group">

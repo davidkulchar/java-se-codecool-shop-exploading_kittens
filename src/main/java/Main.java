@@ -31,6 +31,10 @@ public class Main {
            return new ThymeleafTemplateEngine().render( ProductController.renderProducts(req, res) );
         });
 
+       /* get("/getCategories", (req, res) -> {
+            return
+        });*/
+
         // Add this line to your project to enable the debug screen
         enableDebugScreen();
     }
@@ -49,7 +53,11 @@ public class Main {
 
         //setting up a new product category
         ProductCategory tablet = new ProductCategory("Tablet", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
+        ProductCategory phone = new ProductCategory("Phone", "Hardware", "A phone.");
+        ProductCategory cat = new ProductCategory("Cat", "Experiments", "Top Secret");
         productCategoryDataStore.add(tablet);
+        productCategoryDataStore.add(phone);
+        productCategoryDataStore.add(cat);
 
         //setting up products and printing it
         productDataStore.add(new Product("Amazon Fire", 49.9f, "USD", "Fantastic price. Large content ecosystem. Good parental controls. Helpful technical support.", tablet, amazon));
