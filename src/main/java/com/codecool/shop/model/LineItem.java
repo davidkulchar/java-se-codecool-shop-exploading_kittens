@@ -62,7 +62,7 @@ public class LineItem
         details.put("productId", String.valueOf(getProduct().id));
         details.put("product", getProduct().name);
         details.put("quantity", String.valueOf(quantity));
-        details.put("totalPrice", String.valueOf(getTotalPrice());
+        details.put("totalPrice", String.valueOf(getTotalPrice()));
         return details;
 
     }
