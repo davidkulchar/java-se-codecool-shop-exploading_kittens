@@ -1,6 +1,6 @@
 package com.codecool.shop.dao.implementation;
 
-import com.codecool.shop.dao.ShoppingCartDao;
+import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.model.*;
 
 import java.util.ArrayList;
@@ -11,31 +11,33 @@ import java.util.Map;
 /**
  * Created by davidkulchar on 2017.04.26..
  */
-public class ShoppingCartDaoMem implements ShoppingCartDao{
+public class OrderDaoMem implements OrderDao {
 
-    private List<Product> DATA = new ArrayList<>();
-    private static ShoppingCartDaoMem instance = null;
+    private ArrayList<LineItem> DATA = new ArrayList<>();
+    private static OrderDaoMem instance = null;
 
     /* A private Constructor prevents any other class from instantiating.
      */
-    private ShoppingCartDaoMem() {
+    private OrderDaoMem() {
     }
 
-    public static ShoppingCartDaoMem getInstance() {
+    public static OrderDaoMem getInstance() {
         if (instance == null) {
-            instance = new ShoppingCartDaoMem();
+            instance = new OrderDaoMem();
         }
         return instance;
     }
 
+
     @Override
-    public void add(Product product) {
+    public void add(Product product, int quantity) {
         product.setId(DATA.size() + 1);
-        DATA.add(product);
+        LineItem newItem = new LineItem(product, quantity);
+        DATA.add(newItem);
     }
 
     @Override
-    public Product find(int id) {
+    public LineItem find(int id) {
         return DATA.stream().filter(t -> t.getId() == id).findFirst().orElse(null);
     }
 
@@ -45,7 +47,7 @@ public class ShoppingCartDaoMem implements ShoppingCartDao{
     }
 
     @Override
-    public List<Product> getAll() {
+    public List<LineItem> getAll() {
         return DATA;
     }
 
@@ -54,9 +56,9 @@ public class ShoppingCartDaoMem implements ShoppingCartDao{
         Map payment = new HashMap();
         int quantity = 0;
         float fullPrice = 0;
-        for (Product product: getAll()) {
-            quantity++;
-            fullPrice += product.getCatnipPrice();
+        for (LineItem item: getAll()) {
+            quantity+= item.getQuantity();
+            fullPrice += item.getProduct().getCatnipPrice();
         }
         payment.put("quantity", quantity);
         payment.put("catnipPrice", fullPrice);

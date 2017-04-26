@@ -32,8 +32,8 @@ public class Main {
         });
         get("/addtocart/:id", (Request req, Response res) -> {
             ProductDaoMem productDaoMem = ProductDaoMem.getInstance();
-            ShoppingCartDaoMem.getInstance().add(productDaoMem.find(Integer.parseInt(req.params(":id"))));
-            System.out.println(ShoppingCartDaoMem.getInstance());
+            OrderDaoMem.getInstance().add(productDaoMem.find(Integer.parseInt(req.params(":id"))));
+            System.out.println(OrderDaoMem.getInstance());
             return new ThymeleafTemplateEngine().render( ProductController.renderProducts(req, res) );
         });
 
