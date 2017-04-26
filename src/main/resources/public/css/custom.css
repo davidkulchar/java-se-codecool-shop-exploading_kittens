@@ -73,10 +73,16 @@ h1 {
     color: white;
 }
 
-h2 {
+a {
     font-family: kittens_font;
     font-size: 2em;
     color: #6e0308;
     margin-top: 3px;
     margin-bottom: 3px;
+}
+
+a:hover {
+    text-decoration: none;
+    color: darkorange;
+    cursor: pointer;
 }
