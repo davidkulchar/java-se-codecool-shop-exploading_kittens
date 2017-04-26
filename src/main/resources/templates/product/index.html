@@ -35,16 +35,17 @@
 
 <div class="container">
     <div class="well well-sm col-md-12">
-        <div  class="homemade_navbar" th:each="cat,iterStat : ${category}">
-            <a th:text="${cat.name}"></a>
+        <div  class="col-md-2" th:each="categ,iterStat : ${category}">
+            <a href="" th:text="${categ.name}"></a>
         </div>
     </div>
 
     <div id="products" class="row list-group">
-
-        <div class="item col-xs-4 col-lg-4" th:each="prod,iterStat : ${products}">
+        <div id="columns">
+            <figure>
+        <div th:each="prod,iterStat : ${products}">
             <div class="thumbnail">
-                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" th:attr="src='/img/product_' + ${prod.id} + '.jpg'" alt="" />
+                <img src="http://placehold.it/400x250/000/fff" th:attr="src='/img/product_' + ${prod.id} + '.jpg'" width="100%" />
                 <div class="caption">
                     <h4 class="group inner list-group-item-heading" th:text="${prod.name}">Product name</h4>
                     <p class="group inner list-group-item-text" th:text="${prod.description}">Product description... </p>
@@ -57,13 +58,12 @@
                         </div>
                     </div>
                 </div>
+                </div>
             </div>
+            </figure>
         </div>
     </div>
 
 </div>
-
-<div th:replace="footer :: copy"></div>
-
 </body>
 </html>
