@@ -86,3 +86,14 @@ a:hover {
     color: darkorange;
     cursor: pointer;
 }
+
+.well-sm {
+    padding: 0em;
+    border-radius: 0.2em;
+}
+
+.homemade_navbar {
+    clear:left;
+    margin-left:20px;
+    text-align: center;
+}

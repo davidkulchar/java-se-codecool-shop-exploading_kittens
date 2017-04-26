@@ -34,8 +34,10 @@
 
 
 <div class="container">
-    <div class="well well-sm">
-        <center><a th:text="${category.name}">Category Title</a></center>
+    <div class="well well-sm col-md-12">
+        <div  class="homemade_navbar" th:each="cat,iterStat : ${category}">
+            <a th:text="${cat.name}"></a>
+        </div>
     </div>
 
     <div id="products" class="row list-group">
