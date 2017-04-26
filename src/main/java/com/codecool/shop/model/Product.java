@@ -75,4 +75,17 @@ public class Product extends BaseModel {
                 this.productCategory.getName(),
                 this.supplier.getName());
     }
+
+    public float getCatnipPrice() {
+        if (defaultCurrency.equals("✿")){
+            return defaultPrice;
+        } else if (defaultCurrency.equals("$")) {
+            return (9*defaultPrice);
+        } else if (defaultCurrency.equals("€")) {
+            return (10*defaultPrice);
+        } else if (defaultCurrency.equals("Ŧ")) {
+            return (9*310*defaultPrice);
+        }
+        return 0;
+    }
 }
