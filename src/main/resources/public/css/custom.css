@@ -153,6 +153,7 @@ div#columns figure {
 .col-md-6 {
     width: 50%;
     margin-top: 20px;
+}
 
 /*Modal*/
 
@@ -213,6 +214,7 @@ div#columns figure {
     background-color: #5cb85c;
     color: white;
 }
+
 /* Add Animation */
 @-webkit-keyframes slideIn {
     from {bottom: -300px; opacity: 0}
