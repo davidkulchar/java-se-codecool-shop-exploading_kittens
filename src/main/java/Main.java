@@ -9,6 +9,9 @@ import spark.Request;
 import spark.Response;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -34,6 +37,17 @@ public class Main {
         get("/categories/:name", (Request req, Response res) -> {
             return new ThymeleafTemplateEngine().render( ProductController.renderProductsByCategory(req, res) );
         });
+        get("/addToCart/:id", (Request req, Response res) -> {
+            ProductDaoMem productDaoMem = ProductDaoMem.getInstance();
+            OrderDaoMem.getInstance().add(productDaoMem.find(Integer.parseInt(req.params(":id"))), 1);
+            System.out.println(OrderDaoMem.getInstance().getAll());
+            return new ThymeleafTemplateEngine().render( ProductController.renderProducts(req, res) );
+        });
+
+//        get("/shopCar", (Request req, Response res) -> {
+//            List<LineItem> container = OrderDaoMem.getInstance().getAll();
+//
+//        });
 
         // Add this line to your project to enable the debug screen
         enableDebugScreen();
@@ -45,26 +59,32 @@ public class Main {
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
 
-        //setting up a new supplier
-        Supplier amazon = new Supplier("Amazon", "Digital content and services");
-        supplierDataStore.add(amazon);
-        Supplier lenovo = new Supplier("Lenovo", "Computers");
-        supplierDataStore.add(lenovo);
+        //setting up new suppliers
+        Supplier getSadCat = new Supplier("GetSadCat", "Cat shelter");
+        supplierDataStore.add(getSadCat);
+        Supplier hereIBomb = new Supplier("HereIBomb", "Explosives");
+        supplierDataStore.add(hereIBomb);
+        Supplier starkIndustry = new Supplier("Stark Industry", "Explosives");
+        supplierDataStore.add(starkIndustry);
 
-        //setting up a new product category
-        ProductCategory tablet = new ProductCategory("Tablet", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
-        ProductCategory phone = new ProductCategory("Phone", "Hardware", "A phone.");
-        ProductCategory cat = new ProductCategory("Cat", "Experiments", "Top Secret");
-        productCategoryDataStore.add(tablet);
-        productCategoryDataStore.add(phone);
+
+        //setting up new product categories
+        ProductCategory cat = new ProductCategory("Cats", "Animals", "Cute and fluffy furballs");
+        ProductCategory explosives = new ProductCategory("Explosives", "War stuff", "asd");
         productCategoryDataStore.add(cat);
+        productCategoryDataStore.add(explosives);
 
         //setting up products and printing it
-        productDataStore.add(new Product("Amazon Fire", 49.9f, "USD", "Fantastic price. Large content ecosystem. Good parental controls. Helpful technical support.", tablet, amazon));
-        productDataStore.add(new Product("Lenovo IdeaPad Miix 700", 479, "USD", "Keyboard cover is included. Fanless Core m5 processor. Full-size USB ports. Adjustable kickstand.", tablet, lenovo));
-        productDataStore.add(new Product("Amazon Fire HD 8", 89, "USD", "Amazon's latest Fire HD 8 tablet is a great value for media consumption.", tablet, amazon));
-
+        productDataStore.add(new Product("Fluffy", 49, "USD", "Soft kitty, warm kitty, little ball of fur.\nHappy kitty, sleepy kitty,\npurr\npurr\npurr", cat, getSadCat, "product_1.jpg"));
+        productDataStore.add(new Product("Winchester 760 gunpowder", 479, "EUR", "Buy it, or you can make it from sparkpowder and charkcoal. Choose wisely...", explosives, hereIBomb, "product_2.jpg"));
+        productDataStore.add(new Product("Pawny", 89, "USD", "Meow.", cat, getSadCat, "product_3.jpg"));
+        productDataStore.add(new Product("Soviet Union 9K38 Igla ", 89, "USD", "asd", explosives, hereIBomb, "product_4.jpg"));
+        productDataStore.add(new Product("Nicolas Cate", 89, "USD", "Purrfect for acting", cat, getSadCat, "product_5.jpg"));
+        productDataStore.add(new Product("B61 nuclear bomb", 89, "USD", "BOMMM", explosives, starkIndustry, "product_6.jpg"));
+        productDataStore.add(new Product("Grumpy cat", 89, "USD", "No", cat, getSadCat, "product_7.jpg"));
     }
+
+
 
 
 }

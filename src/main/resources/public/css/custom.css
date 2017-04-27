@@ -1,3 +1,11 @@
+@font-face {
+    font-family: kittens_font;
+    src: url(../font/bebas-neue-regular.ttf);
+}
+
+body {
+    background-color: #6e0308;
+}
 .glyphicon {
     margin-right:5px;
 }
@@ -11,14 +19,12 @@
 }
 .thumbnail img
 {
-    margin-top: 10px;
 }
 .item.list-group-item
 {
     float: none;
     width: 100%;
     background-color: #fff;
-    margin-bottom: 10px;
 }
 .item.list-group-item:nth-of-type(odd):hover,.item.list-group-item:hover
 {
@@ -27,11 +33,11 @@
 
 .item.list-group-item .list-group-image
 {
-    margin-right: 10px;
+
 }
 .item.list-group-item .thumbnail
 {
-    margin-bottom: 0px;
+
 }
 .item.list-group-item .caption
 {
@@ -58,5 +64,64 @@
 }
 .list-group-item-text
 {
-    margin: 0 0 11px;
+
+}
+
+h1 {
+    font-family: kittens_font;
+    font-size: 6em;
+    color: white;
+}
+
+a {
+    font-family: kittens_font;
+    font-size: 2em;
+    color: #6e0308;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+a:hover {
+    text-decoration: none;
+    color: darkorange;
+    cursor: pointer;
+}
+
+.well-sm {
+    padding: 0em;
+    border-radius: 0.2em;
+}
+
+.homemade_navbar {
+    clear:left;
+    margin-left:20px;
+    text-align: center;
+}
+
+item col-xs-4 col-lg-4 {
+    max-height: 200px;
+}
+
+#products {
+    max-height: 100px;
+}
+
+#columns {
+    column-width: 15em;
+    column-gap: 15px;
+    width: 100%;
+    max-width: 1100px;
+    margin-top: 100px auto;
+}
+
+div#columns figure {
+    background: #fefefe;
+    border: 2px solid #fcfcfc;
+    box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);
+    margin: 0 2px 15px;
+    padding: 15px;
+    padding-bottom: 10px;
+    transition: opacity .4s ease-in-out;
+    display: inline-block;
+    column-break-inside: avoid;
 }
