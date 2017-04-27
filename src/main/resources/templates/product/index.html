@@ -68,12 +68,15 @@
     </div>
 
     <div class="well well-sm row">
-        <a id="myBtn" class="col-md-3 my_cart">my cart</a>
-        <a class="col-md-3 my_cart" href="" >Suppliers</a>
-        <a class="col-md-3 my_cart" th:each="categ,iterStat : ${category}" href="" th:text="${categ.name}">
-        </a>
+        <a id="myBtn" class="col-md-4 my_cart">my cart</a>
+        <a class="col-md-4 my_cart" th:each="categ,iterStat : ${category}" href="" th:text="${categ.name}"></a>
     </div>
-
+    <div class="well well-sm row">
+        <h5 class="col-md-3 my_cart" href="" >Suppliers:</h5>
+        <a class="col-md-3 my_cart" href="" >get-Sad-Cat</a>
+        <a class="col-md-3 my_cart" href="" >Tamil Nadu Industrial</a>
+        <a class="col-md-3 my_cart" href="" >stark Industry</a>
+    </div>
     <div>
         <center><div id="columns">
 
