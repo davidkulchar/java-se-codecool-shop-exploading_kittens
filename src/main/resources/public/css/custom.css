@@ -83,6 +83,12 @@ h4 {
     font-size: 20px;
 }
 
+h5 {
+    font-family: kittens_font;
+    font-size: 27px;
+    margin-top:7px;
+}
+
 a {
     font-family: kittens_font;
     font-size: 2em;

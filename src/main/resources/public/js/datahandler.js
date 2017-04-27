@@ -26,7 +26,6 @@ $(document).ready(function (){
     };
 
     var getCart = function () {
-        var
     };
 
     var fillCart = function() {
@@ -50,7 +49,6 @@ $(document).ready(function (){
     };
 
     var renderProduct = function(product) {
-        console.log(product);
         var headDiv = document.createElement('figure');
         var img = document.createElement('img');
         var caption = document.createElement('div');
@@ -126,6 +124,29 @@ $(document).ready(function (){
         a.appendChild(text);
         a.appendChild(span);
         document.getElementById("head-r").appendChild(a);
+    };
+    
+    var renderMenuPoint = function (data, url) {
+        var a = document.createElement('a');
+        var text = document.createTextNode(data.name);
+        a.className = "col-md-3 my_cart";
+        a.onclick = function () {
+            getData(url + "/" +data.name)};
+        a.appendChild(text);
+        document.getElementById("head-r").appendChild(a);
+    };
+
+    var getMenu = function(theurl) {
+        $.ajax({
+            type: 'GET',
+            url: theurl,
+            success: function (data) {
+                data = JSON.parse(data);
+                for (var product in data) {
+                    renderMenuPoint(data[product], theurl);
+                }
+            }
+        });
     };
 
     generateShoppingCart();
