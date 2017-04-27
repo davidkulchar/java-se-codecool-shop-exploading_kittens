@@ -46,6 +46,11 @@ public class Main {
             return productDaoMem.getAllProductsJSON();
         });
 
+        get("/get_cart", (Request req, Response res) -> {
+            OrderDaoMem orderDaoMem = OrderDaoMem.getInstance();
+            return orderDaoMem.getAllProductsJSON();
+        });
+
         get("/addToCart/:id", (Request req, Response res) -> {
             ProductDaoMem productDaoMem = ProductDaoMem.getInstance();
             OrderDaoMem.getInstance().add(productDaoMem.find(Integer.parseInt(req.params(":id"))), 1);

@@ -2,6 +2,7 @@ package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.model.*;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -67,6 +68,28 @@ public class OrderDaoMem implements OrderDao {
         payment.put("quantity", quantity);
         payment.put("catnipPrice", fullPrice);
         return payment;
+    }
+
+    @Override
+    public String getAllProductsJSON(){
+        Gson gson = new Gson();
+        List<Map> productList = new ArrayList<>();
+
+        for (LineItem ln: DATA) {
+            Map product = new HashMap();
+            product.put("name", ln.getProduct().getName());
+            product.put("priceTag", ln.getProduct().getPrice());
+            product.put("id", ln.getProduct().getId());
+            productList.add(product);
+        }
+        Map payment = getPaymentDetails();
+        Map fullMap = new HashMap();
+        fullMap.put("quantity", payment.get("quantity"));
+        fullMap.put("catnipPrice", payment.get("catnipPrice"));
+        fullMap.put("items", productList);
+
+
+        return gson.toJson(fullMap);
     }
 
     @Override

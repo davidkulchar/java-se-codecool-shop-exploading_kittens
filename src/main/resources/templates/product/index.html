@@ -49,7 +49,7 @@
             </div>
             <div class="modal-body">
                 <h4>Only these ones??? ..worst customer ever...</h4>
-                <table>
+                <table id="cart">
                     <tr>
                         <td>name</td>
                         <td>description</td>
@@ -73,14 +73,6 @@
         <a class="col-md-3 my_cart" th:each="categ,iterStat : ${category}" href="" th:text="${categ.name}">
         </a>
     </div>
-
-
-    <div class="well well-sm row">
-        <a class="col-md-3 my_cart" href="" >My cart</a>
-        <a class="col-md-3 my_cart" href="" >Suppliers</a>
-        <a class="col-md-3 my_cart" th:each="categ,iterStat : ${category}" href="" th:text="${categ.name}">
-            </a>
-        </div>
 
     <div>
         <center><div id="columns">
