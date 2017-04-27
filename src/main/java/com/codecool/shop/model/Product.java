@@ -95,4 +95,8 @@ public class Product extends BaseModel {
     public void setPic(String pic) {
         this.pic = pic;
     }
+
+    public String getPic() {
+        return pic;
+    }
 }
