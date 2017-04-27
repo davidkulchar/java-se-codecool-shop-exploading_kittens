@@ -47,6 +47,11 @@ public class Main {
             return productDaoMem.getProductsBySupplierJSON(req.params(":name"));
         });
 
+        get("/cartcount", (Request req, Response res) -> {
+            OrderDaoMem orderDaoMem = OrderDaoMem.getInstance();
+            return orderDaoMem.getAllProductsJSON();
+        });
+
         get("/categories", (Request req, Response res) -> {
             ProductCategoryDaoMem productCategoryDaoMem = ProductCategoryDaoMem.getInstance();
             return productCategoryDaoMem.getAllProductCategoryJSON();

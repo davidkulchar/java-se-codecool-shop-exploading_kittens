@@ -32,13 +32,8 @@ public class OrderDaoMem implements OrderDao {
 
     @Override
     public void add(Product product, int quantity) {
-        if (DATA.contains(product)) {
-            find(product.getId()).setQuantity(quantity);
-        } else {
-            product.setId(DATA.size() + 1);
-            LineItem newItem = new LineItem(product, quantity);
-            DATA.add(newItem);
-        }
+        LineItem newItem = new LineItem(product, quantity);
+        DATA.add(newItem);
     }
 
     @Override
@@ -76,6 +71,7 @@ public class OrderDaoMem implements OrderDao {
             product.put("name", ln.getProduct().getName());
             product.put("priceTag", ln.getProduct().getPrice());
             product.put("id", ln.getProduct().getId());
+            product.put("quantity", ln.getQuantity());
             productList.add(product);
         }
         return productList;
