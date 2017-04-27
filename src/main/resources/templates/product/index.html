@@ -45,25 +45,33 @@
         <div class="modal-content">
             <div class="modal-header">
                 <span class="close">&times;</span>
-                <h2>Modal Header</h2>
+                <h3>My cart</h3>
             </div>
             <div class="modal-body">
-                <p>Some text in the Modal Body</p>
-                <p>Some other text...</p>
-            </div>
-            <div class="modal-footer">
-                <h3>Modal Footer</h3>
+                <h4>Only these ones??? ..worst customer ever...</h4>
+                <table>
+                    <tr>
+                        <td>name</td>
+                        <td>description</td>
+                        <td>price</td>
+                        <td><a class="delete-btn">delete</a></td>
+                    </tr>
+                    <tr>
+                        <td>name</td>
+                        <td>description</td>
+                        <td>price</td>
+                        <td><a class="delete-btn">delete</a></td>
+                    </tr>
+                </table>
             </div>
         </div>
-
     </div>
 
-    <div class="well well-sm col-md-12">
-        <div  class="col-md-2" th:each="categ,iterStat : ${category}">
-            <a href="" th:text="${categ.name}"></a>
-        </div>
-        <button id="myBtn">Open Modal</button>
-
+    <div class="well well-sm row">
+        <a id="myBtn" class="col-md-3 my_cart">my cart</a>
+        <a class="col-md-3 my_cart" href="" >Suppliers</a>
+        <a class="col-md-3 my_cart" th:each="categ,iterStat : ${category}" href="" th:text="${categ.name}">
+        </a>
     </div>
 
 
