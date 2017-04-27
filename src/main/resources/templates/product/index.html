@@ -25,6 +25,8 @@
             crossorigin="anonymous"></script>
     <script src="/js/main.js"></script>
 
+    <script src="/js/datahandler.js"></script>
+
     <link rel="stylesheet" type="text/css" href="/css/custom.css" />
 </head>
 
@@ -35,6 +37,7 @@
 
 
 <div class="container">
+
     <!-- The Modal -->
     <div id="myModal" class="modal">
 
@@ -63,8 +66,16 @@
 
     </div>
 
+
+    <div class="well well-sm row">
+        <a class="col-md-3 my_cart" href="" >My cart</a>
+        <a class="col-md-3 my_cart" href="" >Suppliers</a>
+        <a class="col-md-3 my_cart" th:each="categ,iterStat : ${category}" href="" th:text="${categ.name}">
+            </a>
+        </div>
+
     <div>
-        <div id="columns">
+        <center><div id="columns">
 
         <div th:each="prod,iterStat : ${products}">
             <figure>
@@ -78,7 +89,7 @@
                             <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
                         </div>
                         <div class="col-xs-12 col-md-6">
-                            <a class="btn btn-success" th:href="'/addToCart/'+${prod.id}">Add to cart</a>
+                            <a class="add_to_cart_btn" th:href="'/addToCart/'+${prod.id}">Add to cart</a>
                         </div>
                     </div>
                 </div>
@@ -86,6 +97,7 @@
             </figure>
             </div>
         </div>
+        </center>
     </div>
 
 </div>
