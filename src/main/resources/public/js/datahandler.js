@@ -91,6 +91,45 @@ $(document).ready(function (){
             }
         });
     };
+    
+    var renderMenuPoint = function (data, url) {
+        var a = document.createElement('a');
+        var text = document.createTextNode(data.name);
+        a.className = "col-md-3 my_cart";
+        a.onclick = function () {
+            getData(url + "/" +data.name)};
+        a.appendChild(text);
+        document.getElementById("head-r").appendChild(a);
+    };
 
+    var getMenu = function(theurl) {
+        $.ajax({
+            type: 'GET',
+            url: theurl,
+            success: function (data) {
+                data = JSON.parse(data);
+                for (var product in data) {
+                    renderMenuPoint(data[product], theurl);
+                }
+            }
+        });
+    };
+
+    var generateShoppingCart = function () {
+        var a = document.createElement('a');
+        var text = document.createTextNode("My cart");
+        var span = document.createElement('span');
+        span.className = "button-badge";
+        span.appendChild(document.createTextNode("0"));
+        a.className = "col-md-3 my_cart";
+        a.id = "myBtn";
+        a.appendChild(text);
+        a.appendChild(span);
+        document.getElementById("head-r").appendChild(a);
+    };
+
+    generateShoppingCart();
+    getMenu("/suppliers");
+    getMenu("/categories");
     getData("/get_products");
 });
