@@ -10,23 +10,35 @@ import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 
+import com.google.common.collect.Lists;
 import spark.Request;
 import spark.Response;
 import spark.ModelAndView;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class ProductController {
 
-    public static ModelAndView renderProducts(Request req, Response res) {
-        ProductDao productDataStore = ProductDaoMem.getInstance();
+    public static ModelAndView renderHomePage(Request req, Response res) {
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
+        ProductDao productDataStore = ProductDaoMem.getInstance();
 
         Map params = new HashMap<>();
         params.put("category", productCategoryDataStore.getAll());
         params.put("products", productDataStore.getAll());
+
         return new ModelAndView(params, "product/index");
     }
 
+    public static ModelAndView renderProductsByCategory(Request req, Response res) {
+        ProductDao productDataStore = ProductDaoMem.getInstance();
+        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
+
+        Map params = new HashMap<>();
+        ProductCategory category = productCategoryDataStore.find(req.params(":name"));
+        params.put("category", category);
+        params.put("products", productDataStore.getBy(category));
+        return new ModelAndView(params, "product/index");
+    }
 }
+

@@ -23,6 +23,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
+    <script src="/js/datahandler.js"></script>
 
     <link rel="stylesheet" type="text/css" href="/css/custom.css" />
 </head>
@@ -40,7 +41,6 @@
         <a class="col-md-3 my_cart" th:each="categ,iterStat : ${category}" href="" th:text="${categ.name}">
             </a>
         </div>
-
     <div>
         <center><div id="columns">
 

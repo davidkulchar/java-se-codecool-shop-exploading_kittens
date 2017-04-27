@@ -8,9 +8,12 @@ import com.codecool.shop.model.*;
 import spark.Request;
 import spark.Response;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Main {
 
@@ -28,16 +31,26 @@ public class Main {
         get("/hello", (req, res) -> "Hello World");
 
         // Always add generic routes to the end
-        get("/", ProductController::renderProducts, new ThymeleafTemplateEngine());
+        get("/", ProductController::renderHomePage, new ThymeleafTemplateEngine());
         // Equivalent with above
         get("/index", (Request req, Response res) -> {
-           return new ThymeleafTemplateEngine().render( ProductController.renderProducts(req, res) );
+           return new ThymeleafTemplateEngine().render( ProductController.renderHomePage(req, res) );
         });
+
+        get("/categories/:name", (Request req, Response res) -> {
+            return new ThymeleafTemplateEngine().render( ProductController.renderProductsByCategory(req, res) );
+        });
+
+        get("/get_products", (Request req, Response res) -> {
+            ProductDaoMem productDaoMem = ProductDaoMem.getInstance();
+            return productDaoMem.getAllProductsJSON();
+        });
+
         get("/addToCart/:id", (Request req, Response res) -> {
             ProductDaoMem productDaoMem = ProductDaoMem.getInstance();
             OrderDaoMem.getInstance().add(productDaoMem.find(Integer.parseInt(req.params(":id"))), 1);
             System.out.println(OrderDaoMem.getInstance().getAll());
-            return new ThymeleafTemplateEngine().render( ProductController.renderProducts(req, res) );
+            return new ThymeleafTemplateEngine().render( ProductController.renderHomePage(req, res) );
         });
 
 //        get("/shopCar", (Request req, Response res) -> {
@@ -62,6 +75,7 @@ public class Main {
         supplierDataStore.add(hereIBomb);
         Supplier starkIndustry = new Supplier("Stark Industry", "Explosives");
         supplierDataStore.add(starkIndustry);
+
 
         //setting up new product categories
         ProductCategory cat = new ProductCategory("Cats", "Animals", "Cute and fluffy furballs");
