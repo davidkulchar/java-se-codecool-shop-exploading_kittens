@@ -70,13 +70,13 @@ public class Main {
         productCategoryDataStore.add(explosives);
 
         //setting up products and printing it
-        productDataStore.add(new Product("Fluffy", 49.9f, "USD", "Soft kitty, warm kitty, little ball of fur.\nHappy kitty, sleepy kitty,\npurr\npurr\npurr", cat, getSadCat));
-        productDataStore.add(new Product("Winchester 760 gunpowder", 479, "USD", "Buy it, or you can make it from sparkpowder and charkcoal. Choose wisely...", explosives, hereIBomb));
-        productDataStore.add(new Product("Pawny", 89, "USD", "Meow.", cat, getSadCat));
-        productDataStore.add(new Product("Soviet Union 9K38 Igla ", 89, "USD", "asd", explosives, hereIBomb));
-        productDataStore.add(new Product("Nicolas Cate", 89, "USD", "Purrfect for acting", cat, getSadCat));
-        productDataStore.add(new Product("B61 nuclear bomb", 89, "USD", "BOMMM", explosives, starkIndustry));
-        productDataStore.add(new Product("Grumpy cat", 89, "USD", "No", cat, getSadCat));;
+        productDataStore.add(new Product("Fluffy", 49.9f, "USD", "Soft kitty, warm kitty, little ball of fur.\nHappy kitty, sleepy kitty,\npurr\npurr\npurr", cat, getSadCat, "product_1.jpg"));
+        productDataStore.add(new Product("Winchester 760 gunpowder", 479, "USD", "Buy it, or you can make it from sparkpowder and charkcoal. Choose wisely...", explosives, hereIBomb, "product_2.jpg"));
+        productDataStore.add(new Product("Pawny", 89, "USD", "Meow.", cat, getSadCat, "product_3.jpg"));
+        productDataStore.add(new Product("Soviet Union 9K38 Igla ", 89, "USD", "asd", explosives, hereIBomb, "product_4.jpg"));
+        productDataStore.add(new Product("Nicolas Cate", 89, "USD", "Purrfect for acting", cat, getSadCat, "product_5.jpg"));
+        productDataStore.add(new Product("B61 nuclear bomb", 89, "USD", "BOMMM", explosives, starkIndustry, "product_6.jpg"));
+        productDataStore.add(new Product("Grumpy cat", 89, "USD", "No", cat, getSadCat, "product_7.jpg"));
     }
 
 

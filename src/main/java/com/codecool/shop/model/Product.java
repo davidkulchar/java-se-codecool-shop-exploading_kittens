@@ -9,13 +9,15 @@ public class Product extends BaseModel {
     private Currency defaultCurrency;
     private ProductCategory productCategory;
     private Supplier supplier;
+    public String pic;
 
 
-    public Product(String name, float defaultPrice, String currencyString, String description, ProductCategory productCategory, Supplier supplier) {
+    public Product(String name, float defaultPrice, String currencyString, String description, ProductCategory productCategory, Supplier supplier, String pic) {
         super(name, description);
         this.setPrice(defaultPrice, currencyString);
         this.setSupplier(supplier);
         this.setProductCategory(productCategory);
+        this.setPic(pic);
     }
 
     public float getDefaultPrice() {
@@ -88,5 +90,9 @@ public class Product extends BaseModel {
             return (9*310*defaultPrice);
         }
         return 0;
+    }
+
+    public void setPic(String pic) {
+        this.pic = pic;
     }
 }
