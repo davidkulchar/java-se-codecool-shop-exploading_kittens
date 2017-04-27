@@ -51,6 +51,7 @@ public class OrderDaoMem implements OrderDao {
         DATA.remove(find(id));
     }
 
+    // Get/Set Methods
     @Override
     public List<LineItem> getAll() {
         return DATA;

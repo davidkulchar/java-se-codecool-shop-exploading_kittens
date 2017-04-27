@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public abstract class ShopList{
     private ArrayList<Product> products = new ArrayList<>();
 
+    // Get Method
     public ArrayList<Product> getProducts(){
         return products;
     }
@@ -27,7 +28,6 @@ public abstract class ShopList{
             }
         }
     }
-
     public int getListSize() {
         return products.size();
     }

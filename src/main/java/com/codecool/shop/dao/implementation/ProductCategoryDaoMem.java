@@ -21,12 +21,6 @@ public class ProductCategoryDaoMem implements ProductCategoryDao {
     private ProductCategoryDaoMem() {
     }
 
-    public static ProductCategoryDaoMem getInstance() {
-        if (instance == null) {
-            instance = new ProductCategoryDaoMem();
-        }
-        return instance;
-    }
 
     @Override
     public void add(ProductCategory category) {
@@ -47,6 +41,14 @@ public class ProductCategoryDaoMem implements ProductCategoryDao {
     @Override
     public void remove(int id) {
         DATA.remove(find(id));
+    }
+
+    // Set/Get Methods
+    public static ProductCategoryDaoMem getInstance() {
+        if (instance == null) {
+            instance = new ProductCategoryDaoMem();
+        }
+        return instance;
     }
 
     @Override

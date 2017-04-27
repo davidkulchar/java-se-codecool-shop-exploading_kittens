@@ -46,6 +46,8 @@ public class ProductDaoMem implements ProductDao {
         DATA.remove(find(id));
     }
 
+
+    // Get/Set Methods
     @Override
     public List<Product> getAll() {
         return DATA;
@@ -83,6 +85,8 @@ public class ProductDaoMem implements ProductDao {
         List<Map> prodList = getHashListForJSON(filteredBySupplierList);
         return gson.toJson(prodList);
     }
+
+    //
 
     private List<Product> filterProductsByCategory(String catName){
         List<Product> filteredList = new ArrayList<>();

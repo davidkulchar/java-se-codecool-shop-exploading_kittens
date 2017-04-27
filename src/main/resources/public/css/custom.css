@@ -62,11 +62,8 @@ body {
 {
     clear: both;
 }
-.list-group-item-text
-{
 
-}
-
+/* Letter Styles */
 h1 {
     font-family: kittens_font;
     font-size: 6em;
