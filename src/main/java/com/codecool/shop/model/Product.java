@@ -10,6 +10,7 @@ public class Product extends BaseModel {
     private ProductCategory productCategory;
     private Supplier supplier;
     public String pic;
+    public String priceTag;
 
 
     public Product(String name, float defaultPrice, String currencyString, String description, ProductCategory productCategory, Supplier supplier, String pic) {
@@ -18,6 +19,7 @@ public class Product extends BaseModel {
         this.setSupplier(supplier);
         this.setProductCategory(productCategory);
         this.setPic(pic);
+        this.priceTag = getPrice();
     }
 
     public float getDefaultPrice() {
