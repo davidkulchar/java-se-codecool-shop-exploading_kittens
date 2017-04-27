@@ -10,7 +10,9 @@ import spark.Response;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Main {
 
@@ -37,11 +39,19 @@ public class Main {
         get("/categories/:name", (Request req, Response res) -> {
             return new ThymeleafTemplateEngine().render( ProductController.renderProductsByCategory(req, res) );
         });
+
+        get("/get_products", (Request req, Response res) -> {
+            ProductDaoMem productDaoMem = ProductDaoMem.getInstance();
+            Map products = new HashMap();
+            products.put("products", productDaoMem.getAll());
+            return products;
+        });
+
         get("/addToCart/:id", (Request req, Response res) -> {
             ProductDaoMem productDaoMem = ProductDaoMem.getInstance();
             OrderDaoMem.getInstance().add(productDaoMem.find(Integer.parseInt(req.params(":id"))), 1);
             System.out.println(OrderDaoMem.getInstance().getAll());
-            return true;
+            return new ThymeleafTemplateEngine().render( ProductController.renderHomePage(req, res) );
         });
 
 //        get("/shopCar", (Request req, Response res) -> {
