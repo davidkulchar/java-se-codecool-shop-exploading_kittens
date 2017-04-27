@@ -41,7 +41,7 @@ public class Main {
             ProductDaoMem productDaoMem = ProductDaoMem.getInstance();
             OrderDaoMem.getInstance().add(productDaoMem.find(Integer.parseInt(req.params(":id"))), 1);
             System.out.println(OrderDaoMem.getInstance().getAll());
-            return new ThymeleafTemplateEngine().render( ProductController.renderProducts(req, res) );
+            return true;
         });
 
 //        get("/shopCar", (Request req, Response res) -> {
