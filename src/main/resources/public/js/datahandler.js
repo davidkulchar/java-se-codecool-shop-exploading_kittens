@@ -17,10 +17,6 @@ $(document).ready(function (){
         document.getElementById('next-prev').appendChild(buttonDiv);
     };
 
-    var renderMainContent = function() {
-        var start = '/get_products';
-    };
-
     var createFilledTag = function(tag, cass, content) {
         var div = document.createElement(tag);
         div.className = cass;
@@ -29,12 +25,25 @@ $(document).ready(function (){
         return div
     };
 
+    var getCart = function () {
+        var
+    };
+
+    var fillCart = function() {
+        $.ajax({
+            type: 'GET',
+            url: ("/get_cart"),
+            success: function (data) {
+                getCart(data);
+            }
+        });
+    };
+
     var addToCart = function (id) {
         $.ajax({
             type: 'GET',
             url: ("/addToCart/"+id),
             success: function (data) {
-                alert(id);
                 return data;
             }
         });

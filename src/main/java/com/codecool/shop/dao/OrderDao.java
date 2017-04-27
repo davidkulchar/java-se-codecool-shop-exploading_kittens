@@ -16,6 +16,7 @@ public interface OrderDao {
     LineItem find(int id);
     void remove(int id);
     int getListSize();
+    String getAllProductsJSON();
 
     List<LineItem> getAll();
     Map getPaymentDetails();

@@ -4,7 +4,9 @@ import com.codecool.shop.model.Supplier;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public interface ProductDao {
 
@@ -16,5 +18,7 @@ public interface ProductDao {
     List<Product> getBy(Supplier supplier);
     List<Product> getBy(ProductCategory productCategory);
     String getAllProductsJSON();
+    String getProductsByCategoryJSON(String catName);
+    String getProductsBySupplierJSON(String supName);
 
 }
