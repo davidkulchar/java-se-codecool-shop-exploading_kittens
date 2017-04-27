@@ -87,7 +87,6 @@ public class ProductDaoMem implements ProductDao {
     private List<Product> filterProductsByCategory(String catName){
         List<Product> filteredList = new ArrayList<>();
         for (Product prod: DATA) {
-            System.out.println(prod.getProductCategory().getName());
             if (catName.equals(prod.getProductCategory().getName())) {
                 filteredList.add(prod);
             }
