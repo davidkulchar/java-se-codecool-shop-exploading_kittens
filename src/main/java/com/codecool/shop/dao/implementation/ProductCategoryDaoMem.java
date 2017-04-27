@@ -2,10 +2,14 @@ package com.codecool.shop.dao.implementation;
 
 
 import com.codecool.shop.dao.ProductCategoryDao;
+import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ProductCategoryDaoMem implements ProductCategoryDao {
 
@@ -48,5 +52,23 @@ public class ProductCategoryDaoMem implements ProductCategoryDao {
     @Override
     public List<ProductCategory> getAll() {
         return DATA;
+    }
+
+    @Override
+    public String getAllProductCategoryJSON(){
+        Gson gson = new Gson();
+        List<Map> productCategoryList = getHashListForJSON(DATA);
+        return gson.toJson(productCategoryList);
+    }
+
+    private List<Map> getHashListForJSON(List<ProductCategory> dat) {
+        List<Map> prodCategoryList = new ArrayList<>();
+
+        for (ProductCategory prodCat: dat) {
+            Map product = new HashMap();
+            product.put("name", prodCat.getName());
+            prodCategoryList.add(product);
+        }
+        return prodCategoryList;
     }
 }

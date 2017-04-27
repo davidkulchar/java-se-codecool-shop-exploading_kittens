@@ -38,17 +38,23 @@ public class Main {
         });
 
         get("/categories/:name", (Request req, Response res) -> {
-            return new ThymeleafTemplateEngine().render( ProductController.renderProductsByCategory(req, res) );
-        });
-
-        get("/cat/:name", (Request req, Response res) -> {
             ProductDaoMem productDaoMem = ProductDaoMem.getInstance();
             return productDaoMem.getProductsByCategoryJSON(req.params(":name"));
         });
 
-        get("/sup/:name", (Request req, Response res) -> {
+        get("/suppliers/:name", (Request req, Response res) -> {
             ProductDaoMem productDaoMem = ProductDaoMem.getInstance();
             return productDaoMem.getProductsBySupplierJSON(req.params(":name"));
+        });
+
+        get("/categories", (Request req, Response res) -> {
+            ProductCategoryDaoMem productCategoryDaoMem = ProductCategoryDaoMem.getInstance();
+            return productCategoryDaoMem.getAllProductCategoryJSON();
+        });
+
+        get("/suppliers", (Request req, Response res) -> {
+            SupplierDaoMem suppliers = SupplierDaoMem.getInstance();
+            return suppliers.getAllSupplierJSON();
         });
 
 
@@ -68,11 +74,6 @@ public class Main {
             System.out.println(OrderDaoMem.getInstance().getAll());
             return new ThymeleafTemplateEngine().render( ProductController.renderHomePage(req, res) );
         });
-
-//        get("/shopCar", (Request req, Response res) -> {
-//            List<LineItem> container = OrderDaoMem.getInstance().getAll();
-//
-//        });
 
         // Add this line to your project to enable the debug screen
         enableDebugScreen();

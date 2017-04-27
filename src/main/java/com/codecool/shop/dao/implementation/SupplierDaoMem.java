@@ -1,10 +1,14 @@
 package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.dao.SupplierDao;
+import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SupplierDaoMem implements SupplierDao {
 
@@ -42,5 +46,23 @@ public class SupplierDaoMem implements SupplierDao {
     @Override
     public List<Supplier> getAll() {
         return DATA;
+    }
+
+    @Override
+    public String getAllSupplierJSON(){
+        Gson gson = new Gson();
+        List<Map> supplierList = getHashListForJSON(DATA);
+        return gson.toJson(supplierList);
+    }
+
+    private List<Map> getHashListForJSON(List<Supplier> dat) {
+        List<Map> supplierList = new ArrayList<>();
+
+        for (Supplier supp: dat) {
+            Map supplier = new HashMap();
+            supplier.put("name", supp.getName());
+            supplierList.add(supplier);
+        }
+        return supplierList;
     }
 }
