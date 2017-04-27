@@ -287,3 +287,13 @@ td {
     font-size: 13px;
     padding: 6px;
 }
+
+.button-badge {
+    background-color: #fa3e3e;
+    border-radius: 8px;
+    width: 26%;
+    color: white;
+    margin-right: 25%;
+    padding: 3%;
+    font-size: 20px;
+}
