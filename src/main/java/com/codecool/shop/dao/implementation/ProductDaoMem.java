@@ -5,9 +5,12 @@ import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ProductDaoMem implements ProductDao {
@@ -56,5 +59,25 @@ public class ProductDaoMem implements ProductDao {
     @Override
     public List<Product> getBy(ProductCategory productCategory) {
         return DATA.stream().filter(t -> t.getProductCategory().equals(productCategory)).collect(Collectors.toList());
+    }
+
+    @Override
+    public String getAllProductsJSON(){
+        Gson gson = new Gson();
+        List<Map> productList = new ArrayList<>();
+
+        for (Product prod: DATA) {
+            Map product = new HashMap();
+
+            product.put("name", prod.getName());
+            product.put("description", prod.getDescription());
+            product.put("picture", prod.getPic());
+            product.put("category", prod.getProductCategory().getName());
+            product.put("supplier", prod.getSupplier().getName());
+
+            productList.add(product);
+        }
+
+        return gson.toJson(productList);
     }
 }

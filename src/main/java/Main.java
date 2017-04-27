@@ -8,6 +8,7 @@ import com.codecool.shop.model.*;
 import spark.Request;
 import spark.Response;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,9 +43,7 @@ public class Main {
 
         get("/get_products", (Request req, Response res) -> {
             ProductDaoMem productDaoMem = ProductDaoMem.getInstance();
-            Map products = new HashMap();
-            products.put("products", productDaoMem.getAll());
-            return products;
+            return productDaoMem.getAllProductsJSON();
         });
 
         get("/addToCart/:id", (Request req, Response res) -> {
