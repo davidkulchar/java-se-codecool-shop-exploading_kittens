@@ -73,6 +73,16 @@ h1 {
     color: white;
 }
 
+h3 {
+    font-family: kittens_font;
+    font-size: 30px;
+}
+
+h4 {
+    font-family: kittens_font;
+    font-size: 20px;
+}
+
 a {
     font-family: kittens_font;
     font-size: 2em;
@@ -177,13 +187,13 @@ div#columns figure {
 /* Modal Content */
 .modal-content {
     position: fixed;
-    bottom: 0;
+    bottom: 0em;
     background-color: #fefefe;
     width: 100%;
     -webkit-animation-name: slideIn;
     -webkit-animation-duration: 0.4s;
     animation-name: slideIn;
-    animation-duration: 0.4s
+    animation-duration: 0.5s;
 }
 
 /* The Close Button */
@@ -202,16 +212,14 @@ div#columns figure {
 }
 
 .modal-header {
-    padding: 2px 16px;
-    background-color: #5cb85c;
+    padding: 1px 16px;
+    background-color: #6e0308;
     color: white;
 }
 
-.modal-body {padding: 2px 16px;}
-
 .modal-footer {
-    padding: 2px 16px;
-    background-color: #5cb85c;
+    padding: 1px 16px;
+    background-color: #6e0308;
     color: white;
 }
 
@@ -254,4 +262,22 @@ div#columns figure {
 @keyframes fadeOut {
     from {opacity: 1}
     to {opacity: 0}
+}
+
+table {
+    width:100%;
+}
+
+td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.delete-btn {
+    background-color: #6e0308;
+    color: white;
+    border-radius: 5px;
+    font-size: 13px;
+    padding: 6px;
 }

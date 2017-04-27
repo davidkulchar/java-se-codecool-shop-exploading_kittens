@@ -95,7 +95,7 @@ public class Main {
         productCategoryDataStore.add(explosives);
 
         //setting up products and printing it
-        productDataStore.add(new Product("Transcendens cat", 21, "EUR", "wut", cat, getSadCat, "trans-cat.gif"));
+        productDataStore.add(new Product("Transcendence cat", 21, "EUR", "wut", cat, getSadCat, "trans-cat.gif"));
         productDataStore.add(new Product("B61 nuclear bomb", 965, "USD", "BOMMM", explosives, starkIndustry, "product_6.jpg"));
         productDataStore.add(new Product("Fluffy", 49, "USD", "When you didn't read the Apple's terms and conditions and it said u would turn into a cat and you like WTF but it's too late you are a cat now", cat, getSadCat, "product_1.jpg"));
         productDataStore.add(new Product("Winchester 760 gunpowder", 479, "EUR", "From China", explosives, hereIBomb, "product_2.jpg"));

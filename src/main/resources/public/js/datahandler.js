@@ -29,6 +29,17 @@ $(document).ready(function (){
         return div
     };
 
+    var addToCart = function (id) {
+        $.ajax({
+            type: 'GET',
+            url: ("/addToCart/"+id),
+            success: function (data) {
+                alert(id);
+                return data;
+            }
+        });
+    };
+
     var renderProduct = function(product) {
         console.log(product);
         var headDiv = document.createElement('figure');
@@ -39,8 +50,8 @@ $(document).ready(function (){
         var payDiv = document.createElement('div');
         var currencyDiv = createFilledTag('div', 'lead', product.priceTag);
         var currencyContainer = createFilledTag('div', 'col-xs-12 col-md-6', currencyDiv.innerHTML);
-        var buttonDiv = createFilledTag('a', 'add_to_cart_btn', "Add to cart");
-        var buttonContainer = createFilledTag('div', 'lead', buttonDiv.innerHTML);
+        var buttonContainer = createFilledTag('button', 'col-xs-12 col-md-6 add_to_cart_btn', "Add to cart");
+        buttonContainer.onclick =  function() {addToCart(product.id)};
         payDiv.className = 'row';
         payDiv.appendChild(currencyContainer);
         payDiv.appendChild(buttonContainer);
@@ -58,11 +69,12 @@ $(document).ready(function (){
     };
 
 
-    var getData = function() {
+    var getData = function(theurl) {
         $.ajax({
             type: 'GET',
-            url: "/get_products",
+            url: theurl,
             success: function (data) {
+                document.getElementById("columns").innerHTML = "";
                 data = JSON.parse(data);
                 for (var product in data) {
                     renderProduct(data[product]);
@@ -71,5 +83,5 @@ $(document).ready(function (){
         });
     };
 
-    getData();
+    getData("/get_products");
 });
