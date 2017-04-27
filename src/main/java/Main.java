@@ -9,6 +9,9 @@ import spark.Request;
 import spark.Response;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -30,12 +33,17 @@ public class Main {
         get("/index", (Request req, Response res) -> {
            return new ThymeleafTemplateEngine().render( ProductController.renderProducts(req, res) );
         });
-        get("/addtocart/:id", (Request req, Response res) -> {
+        get("/addToCart/:id", (Request req, Response res) -> {
             ProductDaoMem productDaoMem = ProductDaoMem.getInstance();
-            OrderDaoMem.getInstance().add(productDaoMem.find(Integer.parseInt(req.params(":id"))));
-            System.out.println(OrderDaoMem.getInstance());
+            OrderDaoMem.getInstance().add(productDaoMem.find(Integer.parseInt(req.params(":id"))), 1);
+            System.out.println(OrderDaoMem.getInstance().getAll());
             return new ThymeleafTemplateEngine().render( ProductController.renderProducts(req, res) );
         });
+
+//        get("/shopCar", (Request req, Response res) -> {
+//            List<LineItem> container = OrderDaoMem.getInstance().getAll();
+//
+//        });
 
         // Add this line to your project to enable the debug screen
         enableDebugScreen();
