@@ -64,9 +64,50 @@ public class ProductDaoMem implements ProductDao {
     @Override
     public String getAllProductsJSON(){
         Gson gson = new Gson();
-        List<Map> productList = new ArrayList<>();
+        List<Map> productList = getHashListForJSON(DATA);
+        return gson.toJson(productList);
+    }
 
+    @Override
+    public String getProductsByCategoryJSON(String catName){
+        Gson gson = new Gson();
+        List<Product> filteredList = filterProductsByCategory(catName);
+        List<Map> productList = getHashListForJSON(filteredList);
+        return gson.toJson(productList);
+    }
+
+    @Override
+    public String getProductsBySupplierJSON(String supName){
+        Gson gson = new Gson();
+        List<Product> filteredBySupplierList = filterProductsBySupplier(supName);
+        List<Map> prodList = getHashListForJSON(filteredBySupplierList);
+        return gson.toJson(prodList);
+    }
+
+    private List<Product> filterProductsByCategory(String catName){
+        List<Product> filteredList = new ArrayList<>();
         for (Product prod: DATA) {
+            if (catName.equals(prod.getProductCategory().getName())) {
+                filteredList.add(prod);
+            }
+        }
+        return  filteredList;
+    }
+
+    private List<Product> filterProductsBySupplier(String supName){
+        List<Product> filteredList = new ArrayList<>();
+        for (Product prod: DATA) {
+            if (supName.equals(prod.getSupplier().getName())) {
+                filteredList.add(prod);
+            }
+        }
+        return  filteredList;
+    }
+
+    private List<Map> getHashListForJSON(List<Product> dat) {
+        List<Map> prodList = new ArrayList<>();
+
+        for (Product prod: dat) {
             Map product = new HashMap();
 
             product.put("name", prod.getName());
@@ -76,9 +117,10 @@ public class ProductDaoMem implements ProductDao {
             product.put("supplier", prod.getSupplier().getName());
             product.put("priceTag", prod.getPrice());
 
-            productList.add(product);
+            prodList.add(product);
         }
-
-        return gson.toJson(productList);
+        return prodList;
     }
+
+
 }
