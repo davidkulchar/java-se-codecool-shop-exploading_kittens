@@ -41,6 +41,17 @@ public class Main {
             return new ThymeleafTemplateEngine().render( ProductController.renderProductsByCategory(req, res) );
         });
 
+        get("/cat/:name", (Request req, Response res) -> {
+            ProductDaoMem productDaoMem = ProductDaoMem.getInstance();
+            return productDaoMem.getProductsByCategoryJSON(req.params(":name"));
+        });
+
+        get("/sup/:name", (Request req, Response res) -> {
+            ProductDaoMem productDaoMem = ProductDaoMem.getInstance();
+            return productDaoMem.getProductsBySupplierJSON(req.params(":name"));
+        });
+
+
         get("/get_products", (Request req, Response res) -> {
             ProductDaoMem productDaoMem = ProductDaoMem.getInstance();
             return productDaoMem.getAllProductsJSON();
