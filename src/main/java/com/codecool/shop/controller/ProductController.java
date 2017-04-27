@@ -21,23 +21,13 @@ public class ProductController {
 
     public static ModelAndView renderHomePage(Request req, Response res) {
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
+        ProductDao productDataStore = ProductDaoMem.getInstance();
 
         Map params = new HashMap<>();
         params.put("category", productCategoryDataStore.getAll());
-        params.put("products", newProducts());
+        params.put("products", productDataStore.getAll());
 
         return new ModelAndView(params, "product/index");
-    }
-
-    private static List<Product> newProducts(){
-        ProductDao productDataStore = ProductDaoMem.getInstance();
-        List<Product> newProducts = new ArrayList<>();
-        List<Product> reverseProducts = Lists.reverse(productDataStore.getAll());
-
-        for (int i = 0; i < 3; i++){
-            newProducts.add(reverseProducts.get(i));
-        }
-        return newProducts;
     }
 
     public static ModelAndView renderProductsByCategory(Request req, Response res) {
