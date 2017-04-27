@@ -41,22 +41,31 @@ public class Main {
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
 
-        //setting up a new supplier
-        Supplier amazon = new Supplier("Amazon", "Digital content and services");
-        supplierDataStore.add(amazon);
-        Supplier lenovo = new Supplier("Lenovo", "Computers");
-        supplierDataStore.add(lenovo);
+        //setting up new suppliers
+        Supplier getSadCat = new Supplier("GetSadCat", "Cat shelter");
+        supplierDataStore.add(getSadCat);
+        Supplier hereIBomb = new Supplier("HereIBomb", "Explosives");
+        supplierDataStore.add(hereIBomb);
+        Supplier starkIndustry = new Supplier("Stark Industry", "Explosives");
+        supplierDataStore.add(starkIndustry);
 
-        //setting up a new product category
-        ProductCategory tablet = new ProductCategory("Tablet", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
-        productCategoryDataStore.add(tablet);
+        //setting up new product categories
+        ProductCategory cat = new ProductCategory("Cats", "Animals", "Cute and fluffy furballs");
+        ProductCategory explosives = new ProductCategory("Explosives", "War stuff", "asd");
+        productCategoryDataStore.add(cat);
+        productCategoryDataStore.add(explosives);
 
         //setting up products and printing it
-        productDataStore.add(new Product("Amazon Fire", 49.9f, "USD", "Fantastic price. Large content ecosystem. Good parental controls. Helpful technical support.", tablet, amazon));
-        productDataStore.add(new Product("Lenovo IdeaPad Miix 700", 479, "USD", "Keyboard cover is included. Fanless Core m5 processor. Full-size USB ports. Adjustable kickstand.", tablet, lenovo));
-        productDataStore.add(new Product("Amazon Fire HD 8", 89, "USD", "Amazon's latest Fire HD 8 tablet is a great value for media consumption.", tablet, amazon));
-
+        productDataStore.add(new Product("Fluffy", 49.9f, "USD", "Soft kitty, warm kitty, little ball of fur.\nHappy kitty, sleepy kitty,\npurr\npurr\npurr", cat, getSadCat));
+        productDataStore.add(new Product("Winchester 760 gunpowder", 479, "USD", "Buy it, or you can make it from sparkpowder and charkcoal. Choose wisely...", explosives, hereIBomb));
+        productDataStore.add(new Product("Pawny", 89, "USD", "Meow.", cat, getSadCat));
+        productDataStore.add(new Product("Soviet Union 9K38 Igla ", 89, "USD", "asd", explosives, hereIBomb));
+        productDataStore.add(new Product("Nicolas Cate", 89, "USD", "Purrfect for acting", cat, getSadCat));
+        productDataStore.add(new Product("B61 nuclear bomb", 89, "USD", "BOMMM", explosives, starkIndustry));
+        productDataStore.add(new Product("Grumpy cat", 89, "USD", "No", cat, getSadCat));;
     }
+
+
 
 
 }
