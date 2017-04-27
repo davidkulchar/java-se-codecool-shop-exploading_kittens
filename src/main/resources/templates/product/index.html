@@ -5,7 +5,7 @@
     <meta name="author" content="Codecool" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Codecool Shop</title>
+    <title>Exploding Shop</title>
 
     <!-- Latest compiled and minified Jquery -->
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"
@@ -24,44 +24,61 @@
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
 
+    <script src="/js/datahandler.js"></script>
+
+    <script src="/js/main.js"></script>
+
     <link rel="stylesheet" type="text/css" href="/css/custom.css" />
 </head>
 
 <body>
 
-<div class="jumbotron text-center">
-    <h1>Codecool Shop</h1>
-</div>
+
+<center><h1>Exploding shop</h1></center>
+
 
 <div class="container">
-    <div class="well well-sm">
-        <strong th:text="${category.name}">Category Title</strong>
-    </div>
 
-    <div id="products" class="row list-group">
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
 
-        <div class="item col-xs-4 col-lg-4" th:each="prod,iterStat : ${products}">
-            <div class="thumbnail">
-                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" th:attr="src='/img/product_' + ${prod.id} + '.jpg'" alt="" />
-                <div class="caption">
-                    <h4 class="group inner list-group-item-heading" th:text="${prod.name}">Product name</h4>
-                    <p class="group inner list-group-item-text" th:text="${prod.description}">Product description... </p>
-                    <div class="row">
-                        <div class="col-xs-12 col-md-6">
-                            <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
-                        </div>
-                        <div class="col-xs-12 col-md-6">
-                            <a class="btn btn-success" href="#">Add to cart</a>
-                        </div>
-                    </div>
-                </div>
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h3>My cart</h3>
+            </div>
+            <div class="modal-body">
+                <h4>Only these ones??? ..worst customer ever...</h4>
+                <table id="cart">
+                    <tr>
+                        <td>name</td>
+                        <td>description</td>
+                        <td>price</td>
+                        <td><a class="delete-btn">delete</a></td>
+                    </tr>
+                    <tr>
+                        <td>name</td>
+                        <td>description</td>
+                        <td>price</td>
+                        <td><a class="delete-btn">delete</a></td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>
 
+
+    <div class="well well-sm row" id="head-r">
+    </div>
+    <div>
+        <center><div id="columns">
+
+
+        </div>
+        </center>
+    </div>
+
 </div>
-
-<div th:replace="footer :: copy"></div>
-
 </body>
 </html>

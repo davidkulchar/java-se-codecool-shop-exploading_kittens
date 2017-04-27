@@ -1,5 +1,6 @@
 package com.codecool.shop.model;
 
+import java.util.ArrayList;
 import java.util.Currency;
 
 public class Product extends BaseModel {
@@ -8,35 +9,35 @@ public class Product extends BaseModel {
     private Currency defaultCurrency;
     private ProductCategory productCategory;
     private Supplier supplier;
+    public String pic;
+    public String priceTag;
 
 
-    public Product(String name, float defaultPrice, String currencyString, String description, ProductCategory productCategory, Supplier supplier) {
+    public Product(String name, float defaultPrice, String currencyString, String description, ProductCategory productCategory, Supplier supplier, String pic) {
         super(name, description);
         this.setPrice(defaultPrice, currencyString);
         this.setSupplier(supplier);
         this.setProductCategory(productCategory);
+        this.setPic(pic);
+        this.priceTag = getPrice();
     }
 
+    // Get/Set Methods
     public float getDefaultPrice() {
         return defaultPrice;
     }
-
     public void setDefaultPrice(float defaultPrice) {
         this.defaultPrice = defaultPrice;
     }
-
     public Currency getDefaultCurrency() {
         return defaultCurrency;
     }
-
     public void setDefaultCurrency(Currency defaultCurrency) {
         this.defaultCurrency = defaultCurrency;
     }
-
     public String getPrice() {
         return String.valueOf(this.defaultPrice) + " " + this.defaultCurrency.toString();
     }
-
     public void setPrice(float price, String currency) {
         this.defaultPrice = price;
         this.defaultCurrency = Currency.getInstance(currency);
@@ -45,7 +46,6 @@ public class Product extends BaseModel {
     public ProductCategory getProductCategory() {
         return productCategory;
     }
-
     public void setProductCategory(ProductCategory productCategory) {
         this.productCategory = productCategory;
         this.productCategory.addProduct(this);
@@ -54,7 +54,6 @@ public class Product extends BaseModel {
     public Supplier getSupplier() {
         return supplier;
     }
-
     public void setSupplier(Supplier supplier) {
         this.supplier = supplier;
         this.supplier.addProduct(this);
@@ -74,5 +73,26 @@ public class Product extends BaseModel {
                 this.defaultCurrency.toString(),
                 this.productCategory.getName(),
                 this.supplier.getName());
+    }
+
+    public float getCatnipPrice() {
+        if (defaultCurrency.equals("✿")){
+            return defaultPrice;
+        } else if (defaultCurrency.equals("$")) {
+            return (9*defaultPrice);
+        } else if (defaultCurrency.equals("€")) {
+            return (10*defaultPrice);
+        } else if (defaultCurrency.equals("Ŧ")) {
+            return (9*310*defaultPrice);
+        }
+        return 0;
+    }
+
+    public void setPic(String pic) {
+        this.pic = pic;
+    }
+
+    public String getPic() {
+        return pic;
     }
 }
