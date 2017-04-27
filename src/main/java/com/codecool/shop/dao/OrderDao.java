@@ -19,5 +19,5 @@ public interface OrderDao {
     String getAllProductsJSON();
 
     List<LineItem> getAll();
-    Map getPaymentDetails();
+//    Map getPaymentDetails();
 }

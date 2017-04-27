@@ -52,25 +52,21 @@ public class OrderDaoMem implements OrderDao {
     }
 
     @Override
-    public Map getPaymentDetails() {
-        Map payment = new HashMap();
-        int quantity = 0;
-        float fullPrice = 0;
-        for (LineItem item: getAll()) {
-            quantity+= item.getQuantity();
-            fullPrice += item.getProduct().getCatnipPrice();
-        }
-        payment.put("quantity", quantity);
-        payment.put("catnipPrice", fullPrice);
-        return payment;
+    public int getListSize() {
+        return getAll().size();
     }
 
     @Override
-    public String getAllProductsJSON(){
+    public String getAllProductsJSON() {
         Gson gson = new Gson();
-        List<Map> productList = new ArrayList<>();
+        List<Map> productList = getProductHashList();
+        Map orderMap = getOrderMap(productList);
+        return gson.toJson(orderMap);
+    }
 
-        for (LineItem ln: DATA) {
+    private List<Map> getProductHashList(){
+        List<Map> productList = new ArrayList<>();
+        for (LineItem ln : DATA) {
             Map product = new HashMap();
             product.put("name", ln.getProduct().getName());
             product.put("priceTag", ln.getProduct().getPrice());
@@ -78,18 +74,30 @@ public class OrderDaoMem implements OrderDao {
             product.put("quantity", ln.getQuantity());
             productList.add(product);
         }
-        Map payment = getPaymentDetails();
-        Map fullMap = new HashMap();
-        fullMap.put("quantity", payment.get("quantity"));
-        fullMap.put("catnipPrice", payment.get("catnipPrice"));
-        fullMap.put("items", productList);
-        System.out.println(fullMap);
-        return gson.toJson(fullMap);
+        return productList;
     }
 
-    @Override
-    public int getListSize() {
-        return getAll().size();
+    private Map getPaymentDetails() {
+        Map payment = new HashMap();
+        int quantity = 0;
+        float fullPrice = 0;
+        for (LineItem item : getAll()) {
+            quantity += item.getQuantity();
+            fullPrice += item.getProduct().getCatnipPrice();
+        }
+        payment.put("quantity", quantity);
+        payment.put("catnipPrice", fullPrice);
+        return payment;
+    }
+
+    private Map getOrderMap(List productList){
+        Map payment = getPaymentDetails();
+        Map orderMap = new HashMap();
+        orderMap.put("quantity", payment.get("quantity"));
+        orderMap.put("catnipPrice", payment.get("catnipPrice"));
+        orderMap.put("items", productList);
+        return orderMap;
     }
 }
+
 
