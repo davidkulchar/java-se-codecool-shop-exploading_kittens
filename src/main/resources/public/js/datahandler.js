@@ -25,7 +25,56 @@ $(document).ready(function (){
         return div
     };
 
-    var getCart = function () {
+    var getCart = function (data) {
+        document.getElementById("cart").innerHTML = "";
+        document.getElementById("cart").appendChild(renderThead());
+        for (var item in data.items) {
+            var tr = document.createElement('tr');
+            var thName = getTableElement('td', data.items[item].name);
+            var thPrice = getTableElement('td', data.items[item].priceTag);
+            var thQuantity = getTableElement('td', data.items[item].quantity);
+            var thAction = getTableElement('td', 'Action');
+            tr.appendChild(thName);
+            tr.appendChild(thPrice);
+            tr.appendChild(thQuantity);
+            tr.appendChild(thAction);
+            document.getElementById("cart").appendChild(tr);
+        }
+        var tr = renderTableEnd(data);
+        document.getElementById("cart").appendChild(tr);
+    };
+
+    var renderTableEnd = function(data) {
+        var tr = document.createElement('tr');
+        var thName = getTableElement('th', 'Total Price :');
+        var thPrice = getTableElement('th', data.catnipPrice);
+        var thQuantity = getTableElement('th', 'Total Quantity');
+        var thAction = getTableElement('th', data.quantity);
+        tr.appendChild(thName);
+        tr.appendChild(thPrice);
+        tr.appendChild(thQuantity);
+        tr.appendChild(thAction);
+        return tr;
+
+    };
+
+    var getTableElement = function (tag, text) {
+        var nTag = document.createElement(tag);
+        nTag.appendChild(document.createTextNode(text));
+        return nTag;
+    };
+
+    var renderThead = function () {
+        var thead = document.createElement('thead');
+        var thName = getTableElement('th', 'Name');
+        var thPrice = getTableElement('th', 'Price');
+        var thQuantity = getTableElement('th', 'Quantity');
+        var thAction = getTableElement('th', 'Action');
+        thead.appendChild(thName);
+        thead.appendChild(thPrice);
+        thead.appendChild(thQuantity);
+        thead.appendChild(thAction);
+        return thead;
     };
 
     var fillCart = function() {
@@ -33,7 +82,21 @@ $(document).ready(function (){
             type: 'GET',
             url: ("/get_cart"),
             success: function (data) {
+                data = JSON.parse(data);
                 getCart(data);
+                return data;
+            }
+        });
+    };
+
+    var reCountItems = function () {
+        $.ajax({
+            type: 'GET',
+            url: ("/cartcount"),
+            success: function (data) {
+                data = JSON.parse(data);
+                document.getElementById("counter").innerHTML = data.quantity;
+                return data;
             }
         });
     };
@@ -43,6 +106,8 @@ $(document).ready(function (){
             type: 'GET',
             url: ("/addToCart/"+id),
             success: function (data) {
+                reCountItems();
+                fillCart();
                 return data;
             }
         });
@@ -118,6 +183,7 @@ $(document).ready(function (){
         var text = document.createTextNode("My cart");
         var span = document.createElement('span');
         span.className = "button-badge";
+        span.id = "counter";
         span.appendChild(document.createTextNode("0"));
         a.className = "col-md-3 my_cart";
         a.id = "myBtn";
