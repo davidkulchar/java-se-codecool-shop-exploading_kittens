@@ -89,8 +89,8 @@ public class Main {
         supplierDataStore.add(getSadCat);
         Supplier tamil = new Supplier("Tamil Nadu Industrial", "Explosives");
         supplierDataStore.add(tamil);
-        Supplier starkIndustry = new Supplier("Stark Industry", "Explosives");
-        supplierDataStore.add(starkIndustry);
+        Supplier sparkIndustries = new Supplier("Spark Industries", "Explosives");
+        supplierDataStore.add(sparkIndustries);
 
 
         //setting up new product categories
@@ -101,11 +101,11 @@ public class Main {
 
         //setting up products and printing it
         productDataStore.add(new Product("Transcendence cat", 21, "EUR", "wut", cat, getSadCat, "trans-cat.gif"));
-        productDataStore.add(new Product("B61 nuclear bomb", 965, "USD", "BOMMM", explosives, starkIndustry, "product_6.jpg"));
+        productDataStore.add(new Product("B61 nuclear bomb", 965, "USD", "BOMMM", explosives, sparkIndustries, "product_6.jpg"));
         productDataStore.add(new Product("Fluffy", 49, "USD", "When you didn't read the Apple's terms and conditions and it said u would turn into a cat and you like WTF but it's too late you are a cat now", cat, getSadCat, "product_1.jpg"));
         productDataStore.add(new Product("Winchester 760 gunpowder", 479, "EUR", "From China", explosives, tamil, "product_2.jpg"));
         productDataStore.add(new Product("Pawny", 89, "USD", "Meow.", cat, getSadCat, "product_3.jpg"));
-        productDataStore.add(new Product("Soviet Union 9K38 Igla ", 89, "USD", "You can see this usually in Russian fail videos", explosives, starkIndustry, "product_4.jpg"));
+        productDataStore.add(new Product("Soviet Union 9K38 Igla ", 89, "USD", "You can see this usually in Russian fail videos", explosives, sparkIndustries, "product_4.jpg"));
         productDataStore.add(new Product("Tom's TNT", 21, "EUR", "", explosives, tamil, "tom.gif"));
         productDataStore.add(new Product("Nicolas Cate", 89, "USD", "Purrfect for acting", cat, getSadCat, "product_5.jpg"));
         productDataStore.add(new Product("Grumpy cat", 63, "USD", "No", cat, getSadCat, "product_7.jpg"));
