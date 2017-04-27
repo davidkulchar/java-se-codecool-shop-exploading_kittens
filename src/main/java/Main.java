@@ -30,6 +30,12 @@ public class Main {
         get("/index", (Request req, Response res) -> {
            return new ThymeleafTemplateEngine().render( ProductController.renderProducts(req, res) );
         });
+        get("/addtocart/:id", (Request req, Response res) -> {
+            ProductDaoMem productDaoMem = ProductDaoMem.getInstance();
+            OrderDaoMem.getInstance().add(productDaoMem.find(Integer.parseInt(req.params(":id"))));
+            System.out.println(OrderDaoMem.getInstance());
+            return new ThymeleafTemplateEngine().render( ProductController.renderProducts(req, res) );
+        });
 
         // Add this line to your project to enable the debug screen
         enableDebugScreen();
