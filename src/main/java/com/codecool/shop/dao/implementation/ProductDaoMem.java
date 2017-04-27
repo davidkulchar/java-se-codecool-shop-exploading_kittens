@@ -75,7 +75,7 @@ public class ProductDaoMem implements ProductDao {
             product.put("category", prod.getProductCategory().getName());
             product.put("supplier", prod.getSupplier().getName());
             product.put("priceTag", prod.getPrice());
-
+            product.put("id", prod.getId());
             productList.add(product);
         }
 
