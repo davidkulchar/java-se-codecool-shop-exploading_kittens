@@ -32,7 +32,7 @@ public class OrderDaoMem implements OrderDao {
 
     @Override
     public void add(Product product, int quantity) {
-        if (DATA.contains(product)){
+        if (DATA.contains(product)) {
             find(product.getId()).setQuantity(quantity);
         } else {
             product.setId(DATA.size() + 1);
@@ -57,12 +57,36 @@ public class OrderDaoMem implements OrderDao {
     }
 
     @Override
-    public Map getPaymentDetails() {
+    public int getListSize() {
+        return getAll().size();
+    }
+
+    @Override
+    public String getAllProductsJSON() {
+        Gson gson = new Gson();
+        List<Map> productList = getProductHashList();
+        Map orderMap = getOrderMap(productList);
+        return gson.toJson(orderMap);
+    }
+
+    private List<Map> getProductHashList(){
+        List<Map> productList = new ArrayList<>();
+        for (LineItem ln : DATA) {
+            Map product = new HashMap();
+            product.put("name", ln.getProduct().getName());
+            product.put("priceTag", ln.getProduct().getPrice());
+            product.put("id", ln.getProduct().getId());
+            productList.add(product);
+        }
+        return productList;
+    }
+
+    private Map getPaymentDetails() {
         Map payment = new HashMap();
         int quantity = 0;
         float fullPrice = 0;
-        for (LineItem item: getAll()) {
-            quantity+= item.getQuantity();
+        for (LineItem item : getAll()) {
+            quantity += item.getQuantity();
             fullPrice += item.getProduct().getCatnipPrice();
         }
         payment.put("quantity", quantity);
@@ -70,31 +94,14 @@ public class OrderDaoMem implements OrderDao {
         return payment;
     }
 
-    @Override
-    public String getAllProductsJSON(){
-        Gson gson = new Gson();
-        List<Map> productList = new ArrayList<>();
-
-        for (LineItem ln: DATA) {
-            Map product = new HashMap();
-            product.put("name", ln.getProduct().getName());
-            product.put("priceTag", ln.getProduct().getPrice());
-            product.put("id", ln.getProduct().getId());
-            productList.add(product);
-        }
+    private Map getOrderMap(List productList){
         Map payment = getPaymentDetails();
-        Map fullMap = new HashMap();
-        fullMap.put("quantity", payment.get("quantity"));
-        fullMap.put("catnipPrice", payment.get("catnipPrice"));
-        fullMap.put("items", productList);
-
-
-        return gson.toJson(fullMap);
-    }
-
-    @Override
-    public int getListSize() {
-        return getAll().size();
+        Map orderMap = new HashMap();
+        orderMap.put("quantity", payment.get("quantity"));
+        orderMap.put("catnipPrice", payment.get("catnipPrice"));
+        orderMap.put("items", productList);
+        return orderMap;
     }
 }
+
 
