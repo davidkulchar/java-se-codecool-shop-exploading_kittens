@@ -219,4 +219,5 @@ $(document).ready(function (){
     getMenu("/suppliers");
     getMenu("/categories");
     getData("/get_products");
+    reCountItems();
 });
