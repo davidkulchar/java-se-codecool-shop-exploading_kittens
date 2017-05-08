@@ -200,6 +200,9 @@ div#columns figure {
     -webkit-animation-duration: 0.4s;
     animation-name: slideIn;
     animation-duration: 0.5s;
+    overflow-y: auto;
+    max-height:70%;
+    margin-top:-45%;
 }
 
 /* The Close Button */
