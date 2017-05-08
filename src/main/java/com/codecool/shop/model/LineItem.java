@@ -53,7 +53,7 @@ public class LineItem
         return theProduct.id;
     }
 
-    public void setQuantity(int quant) {
+    public void increaseQuantity(int quant) {
         quantity += quant;
     }
 

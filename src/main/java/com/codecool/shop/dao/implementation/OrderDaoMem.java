@@ -32,8 +32,17 @@ public class OrderDaoMem implements OrderDao {
 
     @Override
     public void add(Product product, int quantity) {
-        LineItem newItem = new LineItem(product, quantity);
-        DATA.add(newItem);
+        boolean match = false;
+        for(LineItem item : DATA){
+            if(item.getProduct() == product){
+                item.increaseQuantity(1);
+                match = true;
+            }
+        }
+        if(!match) {
+            LineItem newItem = new LineItem(product, quantity);
+            DATA.add(newItem);
+        }
     }
 
     @Override
