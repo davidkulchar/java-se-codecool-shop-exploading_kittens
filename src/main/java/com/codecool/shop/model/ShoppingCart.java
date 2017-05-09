@@ -14,7 +14,7 @@ public class ShoppingCart extends ShopList {
         float fullPrice = 0;
         for (Product product: getProducts()) {
             quantity++;
-            fullPrice += product.getCatnipPrice();
+            fullPrice += product.getHUFPrice();
         }
         payment.put("quantity", quantity);
         payment.put("catnipPrice", fullPrice);

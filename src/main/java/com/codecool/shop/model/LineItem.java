@@ -29,7 +29,7 @@ public class LineItem
      */
     public double getTotalPrice()
     {
-        return theProduct.getCatnipPrice() * quantity;
+        return theProduct.getHUFPrice() * quantity;
     }
 
     /**
