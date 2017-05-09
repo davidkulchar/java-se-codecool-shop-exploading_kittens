@@ -33,11 +33,15 @@ $(document).ready(function (){
             var thName = getTableElement('td', data.items[item].name);
             var thPrice = getTableElement('td', data.items[item].priceTag);
             var thQuantity = getTableElement('td', data.items[item].quantity);
-            var thAction = getTableElement('td', 'Action');
+            var thDelete = document.createElement("Button");
+            thDelete.appendChild(document.createTextNode("Delete"));
+            thDelete.className = "btn btn-danger btn-xs";
+            thDelete.setAttribute("style", "float:right");
+            thDelete.onclick = function() {deleteProductFromCart(data.items[item].id)};
             tr.appendChild(thName);
             tr.appendChild(thPrice);
             tr.appendChild(thQuantity);
-            tr.appendChild(thAction);
+            tr.appendChild(thDelete);
             document.getElementById("cart").appendChild(tr);
         }
         var tr = renderTableEnd(data);
@@ -69,11 +73,11 @@ $(document).ready(function (){
         var thName = getTableElement('th', 'Name');
         var thPrice = getTableElement('th', 'Price');
         var thQuantity = getTableElement('th', 'Quantity');
-        var thAction = getTableElement('th', 'Action');
+        var thDelete = getTableElement('th', '');
         thead.appendChild(thName);
         thead.appendChild(thPrice);
         thead.appendChild(thQuantity);
-        thead.appendChild(thAction);
+        thead.appendChild(thDelete);
         return thead;
     };
 
@@ -109,6 +113,19 @@ $(document).ready(function (){
                 reCountItems();
                 fillCart();
                 return data;
+            }
+        });
+    };
+
+    var deleteProductFromCart = function (id) {
+        $.ajax({
+            type: 'GET',
+            url: ("/remove_from_cart/"+id),
+            success: function (data) {
+                reCountItems();
+                fillCart();
+                return data;
+
             }
         });
     };
