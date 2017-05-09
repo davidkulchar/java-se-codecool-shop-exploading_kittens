@@ -47,7 +47,7 @@ $(document).ready(function (){
     var renderTableEnd = function(data) {
         var tr = document.createElement('tr');
         var thName = getTableElement('th', 'Total Price :');
-        var thPrice = getTableElement('th', data.catnipPrice);
+        var thPrice = getTableElement('th', data.fullPrice + " HUF");
         var thQuantity = getTableElement('th', 'Total Quantity');
         var thAction = getTableElement('th', data.quantity);
         tr.appendChild(thName);
@@ -216,6 +216,7 @@ $(document).ready(function (){
     };
 
     generateShoppingCart();
+    fillCart();
     getMenu("/suppliers");
     getMenu("/categories");
     getData("/get_products");
