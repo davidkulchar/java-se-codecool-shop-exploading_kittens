@@ -92,11 +92,7 @@ public class OrderDaoMem implements OrderDao {
         float fullPrice = 0;
         for (LineItem item : getAll()) {
             quantity += item.getQuantity();
-<<<<<<< Updated upstream
-            fullPrice += item.getProduct().getCatnipPrice();
-=======
             fullPrice += item.getProduct().getHUFPrice()*item.getQuantity();
->>>>>>> Stashed changes
         }
         payment.put("quantity", quantity);
         payment.put("catnipPrice", fullPrice);
