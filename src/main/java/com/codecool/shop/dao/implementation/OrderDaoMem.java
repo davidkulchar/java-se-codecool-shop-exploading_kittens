@@ -92,7 +92,7 @@ public class OrderDaoMem implements OrderDao {
         float fullPrice = 0;
         for (LineItem item : getAll()) {
             quantity += item.getQuantity();
-            fullPrice += item.getProduct().getHUFPrice()*quantity;
+            fullPrice += item.getProduct().getHUFPrice()*item.getQuantity();
         }
         payment.put("quantity", quantity);
         payment.put("fullPrice", fullPrice);
