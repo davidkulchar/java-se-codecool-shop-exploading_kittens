@@ -92,10 +92,10 @@ public class OrderDaoMem implements OrderDao {
         float fullPrice = 0;
         for (LineItem item : getAll()) {
             quantity += item.getQuantity();
-            fullPrice += item.getProduct().getCatnipPrice();
+            fullPrice += item.getProduct().getHUFPrice()*item.getQuantity();
         }
         payment.put("quantity", quantity);
-        payment.put("catnipPrice", fullPrice);
+        payment.put("fullPrice", fullPrice);
         return payment;
     }
 
@@ -103,7 +103,7 @@ public class OrderDaoMem implements OrderDao {
         Map payment = getPaymentDetails();
         Map orderMap = new HashMap();
         orderMap.put("quantity", payment.get("quantity"));
-        orderMap.put("catnipPrice", payment.get("catnipPrice"));
+        orderMap.put("fullPrice", payment.get("fullPrice"));
         orderMap.put("items", productList);
         return orderMap;
     }
