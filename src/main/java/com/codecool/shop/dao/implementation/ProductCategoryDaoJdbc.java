@@ -3,10 +3,13 @@ package com.codecool.shop.dao.implementation;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
+import com.google.gson.Gson;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class ProductCategoryDaoJdbc implements ProductCategoryDao {
@@ -24,14 +27,14 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
 
     @Override
     public void add(ProductCategory productCat) {
-        String query = "INSERT INTO product (" +
+        String query = "INSERT INTO product_category (" +
                 "name, " +
                 "description, " +
-                "department, " +
+                "department) " +
                 "VALUES ('"
                 + productCat.getName() + "', '"
                 + productCat.getDescription() + "', '"
-                + productCat.getDepartment() + "','"
+                + productCat.getDepartment()
                 + "');";
         executeQuery(query);
     }
@@ -39,7 +42,7 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
     @Override
     public ProductCategory find(int id) {
         String query = "SELECT * FROM product_category " +
-                "WHERE id =" + String.valueOf(id) + ";";
+                "WHERE id ='" + String.valueOf(id) + "';";
 
         try (Connection connection = getConnection();
              Statement statement =connection.createStatement();
@@ -65,7 +68,7 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
     @Override
     public ProductCategory find(String name) {
         String query = "SELECT * FROM product_category " +
-                "WHERE name =" + name + ";";
+                "WHERE name ='" + name + "';";
 
         try (Connection connection = getConnection();
              Statement statement =connection.createStatement();
@@ -90,7 +93,7 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
     @Override
     public void remove(int id){
         String query = "DELETE * FROM product_category " +
-                "WHERE id =" + String.valueOf(id) + ";";
+                "WHERE id ='" + String.valueOf(id) + "';";
         executeQuery(query);
     }
 
@@ -117,6 +120,24 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
         }
 
         return resultList;
+    }
+
+    @Override
+    public String getAllProductCategoryJSON(){
+        Gson gson = new Gson();
+        List<Map> productCategoryList = getHashListForJSON(getAll());
+        return gson.toJson(productCategoryList);
+    }
+
+    private List<Map> getHashListForJSON(List<ProductCategory> dat) {
+        List<Map> prodCategoryList = new ArrayList<>();
+
+        for (ProductCategory prodCat: dat) {
+            Map product = new HashMap();
+            product.put("name", prodCat.getName());
+            prodCategoryList.add(product);
+        }
+        return prodCategoryList;
     }
 
     private Connection getConnection() throws SQLException {

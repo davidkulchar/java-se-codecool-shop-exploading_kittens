@@ -3,10 +3,13 @@ package com.codecool.shop.dao.implementation;
 import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
+import com.google.gson.Gson;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class SupplierDaoJdbc implements SupplierDao {
@@ -24,13 +27,12 @@ public class SupplierDaoJdbc implements SupplierDao {
 
     @Override
     public void add(Supplier supplier) {
-        String query = "INSERT INTO product (" +
+        String query = "INSERT INTO supplier (" +
                 "name, " +
-                "description, " +
-                "department, " +
+                "description) " +
                 "VALUES ('"
                 + supplier.getName() + "', '"
-                + supplier.getDescription() + "', '"
+                + supplier.getDescription()
                 + "');";
         executeQuery(query);
     }
@@ -62,8 +64,8 @@ public class SupplierDaoJdbc implements SupplierDao {
 
     @Override
     public Supplier find(String name) {
-        String query = "SELECT * FROM product_category " +
-                "WHERE name =" + name + ";";
+        String query = "SELECT * FROM supplier " +
+                "WHERE name ='" + name + "';";
 
         try (Connection connection = getConnection();
              Statement statement =connection.createStatement();
@@ -84,10 +86,11 @@ public class SupplierDaoJdbc implements SupplierDao {
         }
         return null;
     }
+
     @Override
     public void remove(int id){
         String query = "DELETE * FROM supplier " +
-                "WHERE id =" + String.valueOf(id) + ";";
+                "WHERE id ='" + String.valueOf(id) + "';";
         executeQuery(query);
     }
 
@@ -113,6 +116,24 @@ public class SupplierDaoJdbc implements SupplierDao {
         }
 
         return resultList;
+    }
+
+    @Override
+    public String getAllSupplierJSON(){
+        Gson gson = new Gson();
+        List<Map> supplierList = getHashListForJSON(getAll());
+        return gson.toJson(supplierList);
+    }
+
+    private List<Map> getHashListForJSON(List<Supplier> dat) {
+        List<Map> supplierList = new ArrayList<>();
+
+        for (Supplier supp: dat) {
+            Map supplier = new HashMap();
+            supplier.put("name", supp.getName());
+            supplierList.add(supplier);
+        }
+        return supplierList;
     }
 
     private Connection getConnection() throws SQLException {

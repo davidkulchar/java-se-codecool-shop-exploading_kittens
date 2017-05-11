@@ -52,7 +52,7 @@ public class SupplierDaoMem implements SupplierDao {
         return DATA;
     }
 
-    @Override
+
     public String getAllSupplierJSON(){
         Gson gson = new Gson();
         List<Map> supplierList = getHashListForJSON(DATA);

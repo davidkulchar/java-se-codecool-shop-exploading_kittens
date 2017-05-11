@@ -68,7 +68,7 @@ public class ProductDaoMem implements ProductDao {
         return gson.toJson(productList);
     }
 
-    @Override
+
     public String getProductsByCategoryJSON(String catName){
         Gson gson = new Gson();
         List<Product> filteredList = filterProductsByCategory(catName);
@@ -76,7 +76,6 @@ public class ProductDaoMem implements ProductDao {
         return gson.toJson(productList);
     }
 
-    @Override
     public String getProductsBySupplierJSON(String supName){
         Gson gson = new Gson();
         List<Product> filteredBySupplierList = filterProductsBySupplier(supName);
@@ -104,7 +103,7 @@ public class ProductDaoMem implements ProductDao {
         return  filteredList;
     }
 
-    private List<Map> getHashListForJSON(List<Product> dat) {
+    public List<Map> getHashListForJSON(List<Product> dat) {
         List<Map> prodList = new ArrayList<>();
 
         for (Product prod: dat) {

@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -39,13 +40,13 @@ public class ProductDaoJdbc implements ProductDao {
                 "product_category) " +
                 "VALUES ('"
                 + product.getName() + "', '"
-                + product.getDescription() + "', '"
-                + product.getDefaultPrice() + "','"
-                + product.getDefaultCurrency() + "','"
-                + product.getPic() + "','"
-                + product.getSupplier().getId() + "','"
+                + product.getDescription() + "', "
+                + product.getDefaultPrice() + ", '"
+                + product.getDefaultCurrency() + "', '"
+                + product.getPic() + "', "
+                + product.getSupplier().getId() + ", "
                 + product.getProductCategory().getId()
-                + "');";
+                + ");";
         executeQuery(query);
     }
 
@@ -87,7 +88,7 @@ public class ProductDaoJdbc implements ProductDao {
     @Override
     public void remove(int id) {
         String query = "DELETE * FROM product " +
-                "WHERE id =" + String.valueOf(id) + ";";
+                "WHERE id ='" + String.valueOf(id) + "';";
         executeQuery(query);
     }
 
@@ -109,8 +110,8 @@ public class ProductDaoJdbc implements ProductDao {
                 ProductCategory productCategory = ProdCatDataStore.find(resultSet.getInt("product_category"));
 
                 Product product = new Product(resultSet.getString("name"),
-                        resultSet.getFloat("defaultPrice"),
-                        resultSet.getString("defaultCurrency"),
+                        resultSet.getFloat("default_price"),
+                        resultSet.getString("default_currency"),
                         resultSet.getString("description"),
                         productCategory,
                         supplier,
@@ -139,8 +140,8 @@ public class ProductDaoJdbc implements ProductDao {
                 ProductCategory productCategory = ProdCatDataStore.find(resultSet.getInt("product_category"));
 
                 Product product = new Product(resultSet.getString("name"),
-                        resultSet.getFloat("defaultPrice"),
-                        resultSet.getString("defaultCurrency"),
+                        resultSet.getFloat("default_price"),
+                        resultSet.getString("default_currency"),
                         resultSet.getString("description"),
                         productCategory,
                         supplier,
@@ -155,7 +156,7 @@ public class ProductDaoJdbc implements ProductDao {
 
     @Override
     public List<Product> getBy(ProductCategory productCategory) {
-        String query = "SELECT * FROM product WHERE product_category = " + String.valueOf(productCategory.getId()) + ";";
+        String query = "SELECT * FROM product WHERE product_category = '" + String.valueOf(productCategory.getId()) + "';";
 
         List<Product> resultList = new ArrayList<>();
 
@@ -168,8 +169,8 @@ public class ProductDaoJdbc implements ProductDao {
                 Supplier supplier = SupplierDataStore.find(resultSet.getInt("supplier"));
 
                 Product product = new Product(resultSet.getString("name"),
-                        resultSet.getFloat("defaultPrice"),
-                        resultSet.getString("defaultCurrency"),
+                        resultSet.getFloat("default_price"),
+                        resultSet.getString("default_currency"),
                         resultSet.getString("description"),
                         productCategory,
                         supplier,
@@ -181,30 +182,14 @@ public class ProductDaoJdbc implements ProductDao {
         }
         return resultList;
     }
-/*
+
     @Override
     public String getAllProductsJSON(){
         Gson gson = new Gson();
-        List<Map> productList = getHashListForJSON(DATA);
+        List<Map> productList = ProductDaoMem.getInstance().getHashListForJSON(getAll());
         return gson.toJson(productList);
     }
 
-    @Override
-    public String getProductsByCategoryJSON(String catName){
-        Gson gson = new Gson();
-        List<Product> filteredList = filterProductsByCategory(catName);
-        List<Map> productList = getHashListForJSON(filteredList);
-        return gson.toJson(productList);
-    }
-
-    @Override
-    public String getProductsBySupplierJSON(String supName){
-        Gson gson = new Gson();
-        List<Product> filteredBySupplierList = filterProductsBySupplier(supName);
-        List<Map> prodList = getHashListForJSON(filteredBySupplierList);
-        return gson.toJson(prodList);
-    }
-*/
     private Connection getConnection() throws SQLException {
         return DriverManager.getConnection(
                 DATABASE,
