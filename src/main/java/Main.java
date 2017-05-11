@@ -79,7 +79,7 @@ public class Main {
             return new ThymeleafTemplateEngine().render( ProductController.renderHomePage(req, res) );
         });
 
-        get("/remove_from_cart/:id", (Request req, Response res) -> {
+        get("/removeFromCart/:id", (Request req, Response res) -> {
             ProductDaoMem productDaoMem = ProductDaoMem.getInstance();
             OrderDaoMem.getInstance().remove((Integer.parseInt(req.params(":id"))));
             return new ThymeleafTemplateEngine().render( ProductController.renderHomePage(req, res) );

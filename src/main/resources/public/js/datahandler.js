@@ -120,7 +120,7 @@ $(document).ready(function (){
     var deleteProductFromCart = function (id) {
         $.ajax({
             type: 'GET',
-            url: ("/remove_from_cart/"+id),
+            url: ("/removeFromCart/"+id),
             success: function (data) {
                 reCountItems();
                 fillCart();
@@ -171,29 +171,6 @@ $(document).ready(function (){
             }
         });
     };
-    
-    var renderMenuPoint = function (data, url) {
-        var a = document.createElement('a');
-        var text = document.createTextNode(data.name);
-        a.className = "col-md-3 my_cart";
-        a.onclick = function () {
-            getData(url + "/" +data.name)};
-        a.appendChild(text);
-        document.getElementById("head-r").appendChild(a);
-    };
-
-    var getMenu = function(theurl) {
-        $.ajax({
-            type: 'GET',
-            url: theurl,
-            success: function (data) {
-                data = JSON.parse(data);
-                for (var product in data) {
-                    renderMenuPoint(data[product], theurl);
-                }
-            }
-        });
-    };
 
     var generateShoppingCart = function () {
         var a = document.createElement('a');
@@ -208,16 +185,16 @@ $(document).ready(function (){
         a.appendChild(span);
         document.getElementById("head-r").appendChild(a);
     };
-    
-    var renderMenuPoint = function (data, url) {
+
+    /*var renderMenuPoint = function (data, url) {
         var a = document.createElement('a');
         var text = document.createTextNode(data.name);
-        a.className = "col-md-3 my_cart";
+        a.className = "col-md-4 my_cart";
         a.onclick = function () {
             getData(url + "/" +data.name)};
         a.appendChild(text);
         document.getElementById("head-r").appendChild(a);
-    };
+    };*/
 
     var getMenu = function(theurl) {
         $.ajax({
@@ -227,6 +204,7 @@ $(document).ready(function (){
                 data = JSON.parse(data);
                 for (var product in data) {
                     renderMenuPoint(data[product], theurl);
+
                 }
             }
         });
