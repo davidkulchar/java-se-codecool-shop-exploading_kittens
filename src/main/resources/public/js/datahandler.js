@@ -155,21 +155,6 @@
         document.getElementById('columns').appendChild(headDiv);
     };
 
-
-   /* var getData = function(theurl) {
-        $.ajax({
-            type: 'GET',
-            url: theurl,
-            success: function (data) {
-                document.getElementById("columns").innerHTML = "";
-                data = JSON.parse(data);
-                for (var product in data) {
-                    renderProduct(data[product]);
-                }
-            }
-        });
-    };*/
-
     var generateShoppingCart = function () {
         var a = document.createElement('a');
         var text = document.createTextNode("My cart");

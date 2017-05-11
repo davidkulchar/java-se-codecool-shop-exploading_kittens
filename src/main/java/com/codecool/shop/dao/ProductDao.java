@@ -18,7 +18,7 @@ public interface ProductDao {
     List<Product> getBy(Supplier supplier);
     List<Product> getBy(ProductCategory productCategory);
     String getAllProductsJSON();
-    String getProductsByCategoryJSON(String catName);
-    String getProductsBySupplierJSON(String supName);
+//    String getProductsByCategoryJSON(String catName);
+//    String getProductsBySupplierJSON(String supName);
 
 }
