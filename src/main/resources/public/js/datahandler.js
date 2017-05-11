@@ -1,8 +1,6 @@
 /**
  * Created by davidkulchar on 2017.04.27..
  */
-$(document).ready(function (){
-
 
     var getButtons = function (previous, next) {
         var buttonDiv = document.createElement('div');
@@ -158,7 +156,7 @@ $(document).ready(function (){
     };
 
 
-    var getData = function(theurl) {
+   /* var getData = function(theurl) {
         $.ajax({
             type: 'GET',
             url: theurl,
@@ -170,30 +168,7 @@ $(document).ready(function (){
                 }
             }
         });
-    };
-    
-    var renderMenuPoint = function (data, url) {
-        var a = document.createElement('a');
-        var text = document.createTextNode(data.name);
-        a.className = "col-md-3 my_cart";
-        a.onclick = function () {
-            getData(url + "/" +data.name)};
-        a.appendChild(text);
-        document.getElementById("head-r").appendChild(a);
-    };
-
-    var getMenu = function(theurl) {
-        $.ajax({
-            type: 'GET',
-            url: theurl,
-            success: function (data) {
-                data = JSON.parse(data);
-                for (var product in data) {
-                    renderMenuPoint(data[product], theurl);
-                }
-            }
-        });
-    };
+    };*/
 
     var generateShoppingCart = function () {
         var a = document.createElement('a');
@@ -213,9 +188,8 @@ $(document).ready(function (){
         var a = document.createElement('a');
         var text = document.createTextNode(data.name);
         a.className = "col-md-3 my_cart";
-        a.onclick = function () {
-            getData(url + "/" +data.name)};
         a.appendChild(text);
+        a.setAttribute("href", (url + "/" + data.name));
         document.getElementById("head-r").appendChild(a);
     };
 
@@ -232,10 +206,10 @@ $(document).ready(function (){
         });
     };
 
+$(document).ready(function() {
     generateShoppingCart();
     fillCart();
     getMenu("/suppliers");
     getMenu("/categories");
-    getData("/get_products");
     reCountItems();
 });

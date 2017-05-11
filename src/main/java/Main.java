@@ -38,13 +38,12 @@ public class Main {
         });
 
         get("/categories/:name", (Request req, Response res) -> {
-            ProductDaoMem productDaoMem = ProductDaoMem.getInstance();
-            return productDaoMem.getProductsByCategoryJSON(req.params(":name"));
+            return new ThymeleafTemplateEngine().render( ProductController.renderProductsByCategory(req, res) );
+            //return productDaoMem.getProductsByCategoryJSON(req.params(":name"));
         });
 
         get("/suppliers/:name", (Request req, Response res) -> {
-            ProductDaoMem productDaoMem = ProductDaoMem.getInstance();
-            return productDaoMem.getProductsBySupplierJSON(req.params(":name"));
+            return new ThymeleafTemplateEngine().render( ProductController.renderProductsBySupplier(req, res) );
         });
 
         get("/cartcount", (Request req, Response res) -> {
