@@ -8,6 +8,7 @@ import com.codecool.shop.model.Supplier;
 import com.google.gson.Gson;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -51,23 +52,26 @@ public class ProductDaoJdbc implements ProductDao {
     @Override
     public Product find(int id) {
         String query = "SELECT * FROM product " +
-                "LEFT JOIN supplier ON(product.id = supplier.id) " +
-                "LEFT JOIN product_catgeroy ON(product.id = product_category.id) " +
-                "WHERE product.id ='" + id + "';";
+                "WHERE id ='" + String.valueOf(id) + "';";
 
         try (Connection connection = getConnection();
              Statement statement =connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query);
         ){
             if (resultSet.next()){
-                Supplier supplier = new Supplier(resultSet.getString(""))
+                SupplierDaoJdbc SupplierDataStore = SupplierDaoJdbc.getInstance();
+                Supplier supplier = SupplierDataStore.find(resultSet.getInt("supplier"));
+
+                ProductCategoryDaoJdbc ProdCatDataStore = ProductCategoryDaoJdbc.getInstance();
+                ProductCategory productCategory = ProdCatDataStore.find(resultSet.getInt("product_category"));
+
                 Product result = new Product(resultSet.getString("name"),
-                        resultSet.getString("description"),
-                        resultSet.getString("defaultPrice"),
+                        resultSet.getFloat("defaultPrice"),
                         resultSet.getString("defaultCurrency"),
-                        resultSet.getString("pic"),
-                        resultSet.getString("supplier"),
-                        resultSet.getString("productCategory")));
+                        resultSet.getString("description"),
+                        productCategory,
+                        supplier,
+                        resultSet.getString("pic"));
                 return result;
             } else {
                 return null;
@@ -82,24 +86,102 @@ public class ProductDaoJdbc implements ProductDao {
 
     @Override
     public void remove(int id) {
-        DATA.remove(find(id));
+        String query = "DELETE * FROM product " +
+                "WHERE id =" + String.valueOf(id) + ";";
+        executeQuery(query);
     }
 
     @Override
     public List<Product> getAll() {
-        return DATA;
+        String query = "SELECT * FROM product;";
+
+        List<Product> resultList = new ArrayList<>();
+
+        try (Connection connection = getConnection();
+             Statement statement =connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query);
+        ){
+            while (resultSet.next()){
+                SupplierDaoJdbc SupplierDataStore = SupplierDaoJdbc.getInstance();
+                Supplier supplier = SupplierDataStore.find(resultSet.getInt("supplier"));
+
+                ProductCategoryDaoJdbc ProdCatDataStore = ProductCategoryDaoJdbc.getInstance();
+                ProductCategory productCategory = ProdCatDataStore.find(resultSet.getInt("product_category"));
+
+                Product product = new Product(resultSet.getString("name"),
+                        resultSet.getFloat("defaultPrice"),
+                        resultSet.getString("defaultCurrency"),
+                        resultSet.getString("description"),
+                        productCategory,
+                        supplier,
+                        resultSet.getString("pic"));
+                resultList.add(product);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return resultList;
     }
 
     @Override
     public List<Product> getBy(Supplier supplier) {
-        return DATA.stream().filter(t -> t.getSupplier().equals(supplier)).collect(Collectors.toList());
+        String query = "SELECT * FROM product WHERE supplier = " + String.valueOf(supplier.getId()) + ";";
+
+        List<Product> resultList = new ArrayList<>();
+
+        try (Connection connection = getConnection();
+             Statement statement =connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query);
+        ){
+            while (resultSet.next()){
+                ProductCategoryDaoJdbc ProdCatDataStore = ProductCategoryDaoJdbc.getInstance();
+                ProductCategory productCategory = ProdCatDataStore.find(resultSet.getInt("product_category"));
+
+                Product product = new Product(resultSet.getString("name"),
+                        resultSet.getFloat("defaultPrice"),
+                        resultSet.getString("defaultCurrency"),
+                        resultSet.getString("description"),
+                        productCategory,
+                        supplier,
+                        resultSet.getString("pic"));
+                resultList.add(product);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return resultList;
     }
 
     @Override
     public List<Product> getBy(ProductCategory productCategory) {
-        return DATA.stream().filter(t -> t.getProductCategory().equals(productCategory)).collect(Collectors.toList());
-    }
+        String query = "SELECT * FROM product WHERE product_category = " + String.valueOf(productCategory.getId()) + ";";
 
+        List<Product> resultList = new ArrayList<>();
+
+        try (Connection connection = getConnection();
+             Statement statement =connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query);
+        ){
+            while (resultSet.next()){
+                SupplierDaoJdbc SupplierDataStore = SupplierDaoJdbc.getInstance();
+                Supplier supplier = SupplierDataStore.find(resultSet.getInt("supplier"));
+
+                Product product = new Product(resultSet.getString("name"),
+                        resultSet.getFloat("defaultPrice"),
+                        resultSet.getString("defaultCurrency"),
+                        resultSet.getString("description"),
+                        productCategory,
+                        supplier,
+                        resultSet.getString("pic"));
+                resultList.add(product);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return resultList;
+    }
+/*
     @Override
     public String getAllProductsJSON(){
         Gson gson = new Gson();
@@ -122,7 +204,7 @@ public class ProductDaoJdbc implements ProductDao {
         List<Map> prodList = getHashListForJSON(filteredBySupplierList);
         return gson.toJson(prodList);
     }
-
+*/
     private Connection getConnection() throws SQLException {
         return DriverManager.getConnection(
                 DATABASE,
