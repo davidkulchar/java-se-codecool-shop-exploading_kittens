@@ -40,5 +40,16 @@ public class ProductController {
         params.put("products", productDataStore.getBy(category));
         return new ModelAndView(params, "product/index");
     }
+
+    public static Object renderProductsBySupplier(Request req, Response res) {
+        ProductDao productDataStore = ProductDaoMem.getInstance();
+        SupplierDaoMem supplierDao = SupplierDaoMem.getInstance();
+
+        Map params = new HashMap<>();
+        Supplier supplier = supplierDao.find(req.params(":name"));
+        params.put("supplier", supplier);
+        params.put("products", productDataStore.getBy(supplier));
+        return new ModelAndView(params, "product/index");
+    }
 }
 
