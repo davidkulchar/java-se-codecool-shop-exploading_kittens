@@ -67,8 +67,8 @@ public class ProductDaoJdbc implements ProductDao {
                 ProductCategory productCategory = ProdCatDataStore.find(resultSet.getInt("product_category"));
 
                 Product result = new Product(resultSet.getString("name"),
-                        resultSet.getFloat("defaultPrice"),
-                        resultSet.getString("defaultCurrency"),
+                        resultSet.getFloat("default_price"),
+                        resultSet.getString("default_currency"),
                         resultSet.getString("description"),
                         productCategory,
                         supplier,
@@ -116,6 +116,7 @@ public class ProductDaoJdbc implements ProductDao {
                         productCategory,
                         supplier,
                         resultSet.getString("pic"));
+                product.setId(resultSet.getInt("id"));
                 resultList.add(product);
             }
         } catch (SQLException e) {
