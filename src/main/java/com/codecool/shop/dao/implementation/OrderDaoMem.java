@@ -32,7 +32,7 @@ public class OrderDaoMem implements OrderDao {
         boolean match = false;
         for(LineItem item : DATA){
             if(item.getProduct() == product){
-                item.increaseQuantity(1);
+                item.increaseQuantity(quantity);
                 match = true;
             }
         }
