@@ -38,6 +38,10 @@ public class SupplierDaoMem implements SupplierDao {
         return DATA.stream().filter(t -> t.getId() == id).findFirst().orElse(null);
     }
 
+    public Supplier find(String name) {
+        return DATA.stream().filter(t -> t.getName().equalsIgnoreCase(name)).findFirst().orElse(null);
+    }
+
     @Override
     public void remove(int id) {
         DATA.remove(find(id));
@@ -50,7 +54,7 @@ public class SupplierDaoMem implements SupplierDao {
         return DATA;
     }
 
-    @Override
+
     public String getAllSupplierJSON(){
         Gson gson = new Gson();
         List<Map> supplierList = getHashListForJSON(DATA);

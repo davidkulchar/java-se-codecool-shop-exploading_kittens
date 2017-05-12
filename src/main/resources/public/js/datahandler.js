@@ -1,8 +1,6 @@
 /**
  * Created by davidkulchar on 2017.04.27..
  */
-$(document).ready(function (){
-
 
     var getButtons = function (previous, next) {
         var buttonDiv = document.createElement('div');
@@ -33,11 +31,15 @@ $(document).ready(function (){
             var thName = getTableElement('td', data.items[item].name);
             var thPrice = getTableElement('td', data.items[item].priceTag);
             var thQuantity = getTableElement('td', data.items[item].quantity);
-            var thAction = getTableElement('td', 'Action');
+            var thDelete = document.createElement("Button");
+            thDelete.appendChild(document.createTextNode("Delete"));
+            thDelete.className = "btn btn-danger btn-xs";
+            thDelete.setAttribute("style", "float:right");
+            thDelete.onclick = function() {deleteProductFromCart(data.items[item].id)};
             tr.appendChild(thName);
             tr.appendChild(thPrice);
             tr.appendChild(thQuantity);
-            tr.appendChild(thAction);
+            tr.appendChild(thDelete);
             document.getElementById("cart").appendChild(tr);
         }
         var tr = renderTableEnd(data);
@@ -47,7 +49,7 @@ $(document).ready(function (){
     var renderTableEnd = function(data) {
         var tr = document.createElement('tr');
         var thName = getTableElement('th', 'Total Price :');
-        var thPrice = getTableElement('th', data.catnipPrice);
+        var thPrice = getTableElement('th', data.fullPrice + " HUF");
         var thQuantity = getTableElement('th', 'Total Quantity');
         var thAction = getTableElement('th', data.quantity);
         tr.appendChild(thName);
@@ -69,11 +71,11 @@ $(document).ready(function (){
         var thName = getTableElement('th', 'Name');
         var thPrice = getTableElement('th', 'Price');
         var thQuantity = getTableElement('th', 'Quantity');
-        var thAction = getTableElement('th', 'Action');
+        var thDelete = getTableElement('th', '');
         thead.appendChild(thName);
         thead.appendChild(thPrice);
         thead.appendChild(thQuantity);
-        thead.appendChild(thAction);
+        thead.appendChild(thDelete);
         return thead;
     };
 
@@ -113,6 +115,19 @@ $(document).ready(function (){
         });
     };
 
+    var deleteProductFromCart = function (id) {
+        $.ajax({
+            type: 'GET',
+            url: ("/remove_from_cart/"+id),
+            success: function (data) {
+                reCountItems();
+                fillCart();
+                return data;
+
+            }
+        });
+    };
+
     var renderProduct = function(product) {
         var headDiv = document.createElement('figure');
         var img = document.createElement('img');
@@ -140,44 +155,6 @@ $(document).ready(function (){
         document.getElementById('columns').appendChild(headDiv);
     };
 
-
-    var getData = function(theurl) {
-        $.ajax({
-            type: 'GET',
-            url: theurl,
-            success: function (data) {
-                document.getElementById("columns").innerHTML = "";
-                data = JSON.parse(data);
-                for (var product in data) {
-                    renderProduct(data[product]);
-                }
-            }
-        });
-    };
-    
-    var renderMenuPoint = function (data, url) {
-        var a = document.createElement('a');
-        var text = document.createTextNode(data.name);
-        a.className = "col-md-3 my_cart";
-        a.onclick = function () {
-            getData(url + "/" +data.name)};
-        a.appendChild(text);
-        document.getElementById("head-r").appendChild(a);
-    };
-
-    var getMenu = function(theurl) {
-        $.ajax({
-            type: 'GET',
-            url: theurl,
-            success: function (data) {
-                data = JSON.parse(data);
-                for (var product in data) {
-                    renderMenuPoint(data[product], theurl);
-                }
-            }
-        });
-    };
-
     var generateShoppingCart = function () {
         var a = document.createElement('a');
         var text = document.createTextNode("My cart");
@@ -196,9 +173,8 @@ $(document).ready(function (){
         var a = document.createElement('a');
         var text = document.createTextNode(data.name);
         a.className = "col-md-3 my_cart";
-        a.onclick = function () {
-            getData(url + "/" +data.name)};
         a.appendChild(text);
+        a.setAttribute("href", (url + "/" + data.name));
         document.getElementById("head-r").appendChild(a);
     };
 
@@ -215,8 +191,10 @@ $(document).ready(function (){
         });
     };
 
+$(document).ready(function() {
     generateShoppingCart();
+    fillCart();
     getMenu("/suppliers");
     getMenu("/categories");
-    getData("/get_products");
+    reCountItems();
 });

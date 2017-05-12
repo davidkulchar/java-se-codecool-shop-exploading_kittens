@@ -56,7 +56,7 @@ public class Product extends BaseModel {
     }
     public void setSupplier(Supplier supplier) {
         this.supplier = supplier;
-        this.supplier.addProduct(this);
+//        this.supplier.addProduct(this);
     }
 
     @Override
@@ -75,18 +75,6 @@ public class Product extends BaseModel {
                 this.supplier.getName());
     }
 
-    public float getCatnipPrice() {
-        if (defaultCurrency.equals("✿")){
-            return defaultPrice;
-        } else if (defaultCurrency.equals("$")) {
-            return (9*defaultPrice);
-        } else if (defaultCurrency.equals("€")) {
-            return (10*defaultPrice);
-        } else if (defaultCurrency.equals("Ŧ")) {
-            return (9*310*defaultPrice);
-        }
-        return 0;
-    }
 
     public void setPic(String pic) {
         this.pic = pic;
@@ -94,5 +82,16 @@ public class Product extends BaseModel {
 
     public String getPic() {
         return pic;
+    }
+
+    public float getHUFPrice() {
+        if (defaultCurrency == Currency.getInstance("HUF")){
+            return defaultPrice;
+        } else if (defaultCurrency == Currency.getInstance("USD")) {
+            return (280*defaultPrice);
+        } else if (defaultCurrency == Currency.getInstance("EUR")) {
+            return (310*defaultPrice);
+        }
+        return 0;
     }
 }

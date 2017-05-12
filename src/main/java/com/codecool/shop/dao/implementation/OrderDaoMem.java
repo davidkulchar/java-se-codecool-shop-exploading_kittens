@@ -9,9 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by davidkulchar on 2017.04.26..
- */
 public class OrderDaoMem implements OrderDao {
 
     private ArrayList<LineItem> DATA = new ArrayList<>();
@@ -32,8 +29,17 @@ public class OrderDaoMem implements OrderDao {
 
     @Override
     public void add(Product product, int quantity) {
-        LineItem newItem = new LineItem(product, quantity);
-        DATA.add(newItem);
+        boolean match = false;
+        for(LineItem item : DATA){
+            if(item.getProduct() == product){
+                item.increaseQuantity(quantity);
+                match = true;
+            }
+        }
+        if(!match) {
+            LineItem newItem = new LineItem(product, quantity);
+            DATA.add(newItem);
+        }
     }
 
     @Override
@@ -84,10 +90,10 @@ public class OrderDaoMem implements OrderDao {
         float fullPrice = 0;
         for (LineItem item : getAll()) {
             quantity += item.getQuantity();
-            fullPrice += item.getProduct().getCatnipPrice();
+            fullPrice += item.getProduct().getHUFPrice()*item.getQuantity();
         }
         payment.put("quantity", quantity);
-        payment.put("catnipPrice", fullPrice);
+        payment.put("fullPrice", fullPrice);
         return payment;
     }
 
@@ -95,7 +101,7 @@ public class OrderDaoMem implements OrderDao {
         Map payment = getPaymentDetails();
         Map orderMap = new HashMap();
         orderMap.put("quantity", payment.get("quantity"));
-        orderMap.put("catnipPrice", payment.get("catnipPrice"));
+        orderMap.put("fullPrice", payment.get("fullPrice"));
         orderMap.put("items", productList);
         return orderMap;
     }

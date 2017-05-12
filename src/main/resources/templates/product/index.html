@@ -49,9 +49,10 @@
                 <h3>My cart</h3>
             </div>
             <div class="modal-body">
-                <h4>Only these ones??? ..worst customer ever...</h4>
-                <table id="cart">
+                <div class="container">
+                <table class="" id="cart">
                 </table>
+                </div>
             </div>
         </div>
     </div>
@@ -61,8 +62,16 @@
     </div>
     <div>
         <center><div id="columns">
-
-
+            <figure class="thumbnail" th:each="prod,iterStat : ${products}">
+                <img th:attr="src='/img/'+${prod.pic}" width="100%" />
+                <div class="caption">
+                    <h4 class="group inner list-group-item-heading" th:text="${prod.name}"></h4>
+                    <p class="group inner list-group-item-text" th:text="${prod.description}">wut</p>
+                    <div class="row"><div class="col-xs-12 col-md-6" th:text="${prod.priceTag}">21.0 EUR</div>
+                        <button class="col-xs-12 col-md-6 add_to_cart_btn" th:onclick="'addToCart(' + ${prod.id} + ');'">Add to cart</button>
+                    </div>
+                </div>
+            </figure>
         </div>
         </center>
     </div>

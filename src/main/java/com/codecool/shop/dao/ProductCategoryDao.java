@@ -11,7 +11,6 @@ public interface ProductCategoryDao {
     ProductCategory find(String name);
     void remove(int id);
     String getAllProductCategoryJSON();
-
     List<ProductCategory> getAll();
 
 }
