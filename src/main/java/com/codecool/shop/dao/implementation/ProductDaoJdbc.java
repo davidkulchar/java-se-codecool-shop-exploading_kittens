@@ -9,10 +9,9 @@ import com.google.gson.Gson;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
+
 
 public class ProductDaoJdbc implements ProductDao {
 
@@ -53,7 +52,7 @@ public class ProductDaoJdbc implements ProductDao {
     @Override
     public Product find(int id) {
         String query = "SELECT * FROM product " +
-                "WHERE id ='" + String.valueOf(id) + "';";
+                "WHERE id =" + String.valueOf(id) + ";";
 
         try (Connection connection = getConnection();
              Statement statement =connection.createStatement();
@@ -73,6 +72,7 @@ public class ProductDaoJdbc implements ProductDao {
                         productCategory,
                         supplier,
                         resultSet.getString("pic"));
+                result.setId(resultSet.getInt("id"));
                 return result;
             } else {
                 return null;
@@ -147,6 +147,7 @@ public class ProductDaoJdbc implements ProductDao {
                         productCategory,
                         supplier,
                         resultSet.getString("pic"));
+                product.setId(resultSet.getInt("id"));
                 resultList.add(product);
             }
         } catch (SQLException e) {
@@ -176,6 +177,7 @@ public class ProductDaoJdbc implements ProductDao {
                         productCategory,
                         supplier,
                         resultSet.getString("pic"));
+                product.setId(resultSet.getInt("id"));
                 resultList.add(product);
             }
         } catch (SQLException e) {
