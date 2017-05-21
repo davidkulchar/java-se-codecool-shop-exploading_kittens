@@ -1,12 +1,15 @@
 package com.codecool.shop.model;
 
 import java.util.ArrayList;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created by davidkulchar on 2017.04.26..
  */
 public abstract class ShopList{
     private ArrayList<Product> products = new ArrayList<>();
+    private static final Logger logger = LoggerFactory.getLogger(ShopList.class);
 
     // Get Method
     public ArrayList<Product> getProducts(){

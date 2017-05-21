@@ -2,11 +2,14 @@ package com.codecool.shop.model;
 
 import java.util.HashMap;
 import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * Created by davidkulchar on 2017.04.26..
+ * ShoppingCard --- currently under development
  */
 public class ShoppingCart extends ShopList {
+    private static final Logger logger = LoggerFactory.getLogger(ShoppingCart.class);
 
     public Map generatePaymentDetails() {
         Map payment = new HashMap();

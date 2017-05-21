@@ -10,8 +10,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ProductCategoryDaoMem implements ProductCategoryDao {
+    private static final Logger logger = LoggerFactory.getLogger(ProductCategoryDaoMem.class);
 
     private List<ProductCategory> DATA = new ArrayList<>();
     private static ProductCategoryDaoMem instance = null;

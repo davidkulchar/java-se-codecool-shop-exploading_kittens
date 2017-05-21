@@ -11,9 +11,12 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public class ProductDaoJdbc implements ProductDao {
+    private static final Logger logger = LoggerFactory.getLogger(ProductDaoJdbc.class);
 
     private static final String DATABASE = "jdbc:postgresql://localhost:5432/codecoolshop";
     private static final String DB_USER = "postgres";

@@ -8,8 +8,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class OrderDaoMem implements OrderDao {
+    private static final Logger logger = LoggerFactory.getLogger(OrderDaoMem.class);
 
     private ArrayList<LineItem> DATA = new ArrayList<>();
     private static OrderDaoMem instance = null;

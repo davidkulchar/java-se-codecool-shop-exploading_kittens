@@ -10,9 +10,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public class ProductCategoryDaoJdbc implements ProductCategoryDao {
+    private static final Logger logger = LoggerFactory.getLogger(OrderDaoMem.class);
     private static final String DATABASE = "jdbc:postgresql://localhost:5432/codecoolshop";
     private static final String DB_USER = "postgres";
     private static final String DB_PASSWORD = "postgres";

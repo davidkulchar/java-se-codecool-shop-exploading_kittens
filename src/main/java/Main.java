@@ -14,9 +14,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Main {
+    private static final Logger logger = LoggerFactory.getLogger(Main.class);
 
+
+    /**
+     * Rendering then shops pages;
+     * @param args
+     */
     public static void main(String[] args) {
 
         // default server settings
@@ -85,6 +93,11 @@ public class Main {
         enableDebugScreen();
     }
 
+
+    /**
+     * populateData
+     * populates Dao-s with data
+     */
     public static void populateData() {
 
         ProductDao productDataStore = ProductDaoJdbc.getInstance();

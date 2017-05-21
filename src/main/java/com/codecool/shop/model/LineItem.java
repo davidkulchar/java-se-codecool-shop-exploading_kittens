@@ -1,4 +1,6 @@
 package com.codecool.shop.model;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.codecool.shop.model.Product;
 
@@ -8,8 +10,10 @@ import java.util.Map;
 /**
  Describes a quantity of an article to purchase.
  */
-public class LineItem
-{
+public class LineItem {
+    private static final Logger logger = LoggerFactory.getLogger(LineItem.class);
+
+    private Product theProduct;
 
     private int quantity;
     /**
@@ -21,11 +25,12 @@ public class LineItem
     {
         theProduct = aProduct;
         quantity = aQuantity;
+        logger.info("Created LineItem with product {}, with quantity {}.", this.theProduct, this.quantity);
     }
 
     /**
-     Computes the total cost of this line item.
-     @return the total price
+    * Computes the total cost of this line item.
+     * *@return the total price
      */
     public double getTotalPrice()
     {
@@ -33,8 +38,8 @@ public class LineItem
     }
 
     /**
-     Formats this item.
-     @return a formatted string of this item
+     *Formats this item.
+     *@return a formatted string of this item
      */
     public String format()
     {
@@ -43,7 +48,6 @@ public class LineItem
                 quantity, getTotalPrice());
     }
 
-    private Product theProduct;
 
     public int getQuantity() {
         return quantity;
@@ -61,6 +65,10 @@ public class LineItem
         return theProduct;
     }
 
+    /**
+     * Creates a HashMap with the attributes of the LineItem
+     * @return the aformentioted HashMap
+     */
     public HashMap getDetails(){
         HashMap<String, String> details = new HashMap();
         details.put("productId", String.valueOf(getProduct().id));

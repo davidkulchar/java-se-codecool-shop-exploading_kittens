@@ -12,9 +12,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ProductDaoMem implements ProductDao {
-
+    private static final Logger logger = LoggerFactory.getLogger(ProductDaoMem.class);
     private List<Product> DATA = new ArrayList<>();
     private static ProductDaoMem instance = null;
 
