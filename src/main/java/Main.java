@@ -39,6 +39,7 @@ public class Main {
         get("/", ProductController::renderHomePage, new ThymeleafTemplateEngine());
         // Equivalent with above
         get("/index", (Request req, Response res) -> {
+            logger.info("Hompage rendred!");
            return new ThymeleafTemplateEngine().render( ProductController.renderHomePage(req, res) );
         });
 
@@ -53,6 +54,7 @@ public class Main {
 
         get("/cartcount", (Request req, Response res) -> {
             OrderDaoMem orderDaoMem = OrderDaoMem.getInstance();
+            logger.info("Getting number of elements in cart");
             return orderDaoMem.getAllProductsJSON();
         });
 
@@ -69,23 +71,26 @@ public class Main {
 
         get("/get_products", (Request req, Response res) -> {
             ProductDaoMem productDaoMem = ProductDaoMem.getInstance();
+            logger.info("Rendering all of the Products");
             return productDaoMem.getAllProductsJSON();
         });
 
         get("/get_cart", (Request req, Response res) -> {
             OrderDaoMem orderDaoMem = OrderDaoMem.getInstance();
+            logger.info("ShoppingCart got rendered.");
             return orderDaoMem.getAllProductsJSON();
         });
 
         get("/addToCart/:id", (Request req, Response res) -> {
             ProductDao productDataStore = ProductDaoJdbc.getInstance();
             OrderDaoMem.getInstance().add(productDataStore.find(Integer.parseInt(req.params(":id"))), 1);
-            System.out.println(req.params(":id"));
+            logger.info("Product added to Card: {} ", (":id") );
             return new ThymeleafTemplateEngine().render( ProductController.renderHomePage(req, res) );
         });
 
         get("/remove_from_cart/:id", (Request req, Response res) -> {
             OrderDaoMem.getInstance().remove((Integer.parseInt(req.params(":id"))));
+            logger.info("Rendering product with id: {} ", (":id") );
             return new ThymeleafTemplateEngine().render( ProductController.renderHomePage(req, res) );
         });
 
@@ -136,6 +141,8 @@ public class Main {
         productDataStore.add(new Product("Nicolas Cate", 89, "USD", "Purrfect for acting", cat, getSadCat, "product_5.jpg"));
         productDataStore.add(new Product("Grumpy cat", 63, "USD", "No", cat, getSadCat, "product_7.jpg"));
         productDataStore.add(new Product("BOMB Petard bomb", 89, "EUR", "No, it is not cool if you throw this at people on New Year`s Eve.", explosives, tamil, "product_8.jpg"));
+
+    logger.info("Daos got populated!")
     }
 
 
